@@ -8,21 +8,19 @@
 
 #import <UIKit/UIKit.h>
 
-typedef enum _FWTClockSubview
-{
+typedef NS_ENUM(NSInteger, FWTClockSubview) {
     FWTClockSubviewBackground,
     FWTClockSubviewHandHour,
     FWTClockSubviewHandMinute,
     FWTClockSubviewHandSecond,
     FWTClockSubviewRing,
     FWTClockSubviewCount,
-} FWTClockSubview;
+};
 
-typedef enum _FWTClockViewStyle
-{
+typedef NS_ENUM(NSInteger, FWTClockViewStyle) {
     FWTClockViewStyleDay,
     FWTClockViewStyleNight,
-} FWTClockViewStyle;
+};
 
 @interface FWTClockView : UIView
 
