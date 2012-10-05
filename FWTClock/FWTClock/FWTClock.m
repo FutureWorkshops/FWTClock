@@ -104,6 +104,9 @@ NSString *const keySecondHandAnimation = @"keySecondHandAnimation";
             void(^rotateHourAndMinuteHands)() = ^(void) {
                 self.clockView.handHourView.transform = CGAffineTransformMakeRotation(Degrees2Radians(newHourAngle));
                 self.clockView.handMinuteView.transform = CGAffineTransformMakeRotation(Degrees2Radians(newMinuteAngle));
+                
+                if (self.oscillatorType == FWTClockOscillatorTypeQuartz)
+                    self.clockView.handSecondView.transform = CGAffineTransformMakeRotation(Degrees2Radians(newSecondAngle));
             };
             
             
@@ -111,7 +114,7 @@ NSString *const keySecondHandAnimation = @"keySecondHandAnimation";
             {
                 [UIView animateWithDuration:.2f animations:rotateHourAndMinuteHands];
                 
-                if (![self.clockView.handSecondView.layer animationForKey:keySecondHandAnimation])
+                if (![self.clockView.handSecondView.layer animationForKey:keySecondHandAnimation] && self.oscillatorType == FWTClockOscillatorTypeMechanical)
                 {
                     CGFloat radians = Degrees2Radians(newSecondAngle);
                     self.clockView.handSecondView.transform = CGAffineTransformMakeRotation(radians);
@@ -136,16 +139,33 @@ NSString *const keySecondHandAnimation = @"keySecondHandAnimation";
     }
 }
 
+- (void)setOscillatorType:(FWTClockOscillatorType)oscillatorType
+{
+    if (self->_oscillatorType != oscillatorType)
+    {
+        self->_oscillatorType = oscillatorType;
+        
+        if ([self isAnimating])
+        {
+            [self toggle];  // first stop
+            [self toggle];  // then restart
+        }
+    }
+}
+
 - (void)toggle
 {
     if ([self isAnimating])
     {
         [NSObject cancelPreviousPerformRequestsWithTarget:self];
         
-        CALayer *pl = self.clockView.handSecondView.layer.presentationLayer;
-        CGAffineTransform t = pl.affineTransform;
-        [self.clockView.handSecondView.layer removeAnimationForKey:keySecondHandAnimation];
-        self.clockView.handSecondView.transform = t;
+        if (self.oscillatorType == FWTClockOscillatorTypeMechanical)
+        {
+            CALayer *pl = self.clockView.handSecondView.layer.presentationLayer;
+            CGAffineTransform t = pl.affineTransform;
+            [self.clockView.handSecondView.layer removeAnimationForKey:keySecondHandAnimation];
+            self.clockView.handSecondView.transform = t;
+        }
     }
     else
     {
@@ -154,5 +174,6 @@ NSString *const keySecondHandAnimation = @"keySecondHandAnimation";
     
     self.animating = !self.animating;
 }
+
 
 @end

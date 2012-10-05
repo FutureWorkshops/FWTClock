@@ -8,37 +8,25 @@
 
 #import "FWTClockBackgroundView.h"
 
-@implementation FWTClockBackgroundView
+@interface FWTClockTeethLayer : CALayer
+@end
 
-+ (Class)layerClass
-{
-    return [CAShapeLayer class];
-}
+@implementation FWTClockTeethLayer
 
-- (id)initWithFrame:(CGRect)frame
+- (id)init
 {
-    if ((self = [super initWithFrame:frame]))
+    if ((self = [super init]))
     {
-        self.contentMode = UIViewContentModeRedraw;
-        self.backgroundColor = [UIColor clearColor];
+        self.needsDisplayOnBoundsChange = YES;
+        self.contentsScale = [UIScreen mainScreen].scale;
     }
     return self;
 }
 
-- (void)drawRect:(CGRect)rect
+- (void)drawInContext:(CGContextRef)ctx
 {
-    CGRect availableRect = CGRectInset(rect, 2, 2);
-    CGContextRef ctx = UIGraphicsGetCurrentContext();
-    
-//    CGContextStrokeRect(ctx, rect);
-    
-    //
-    CGContextSetFillColorWithColor(ctx, self.shapeLayer.fillColor);
-    UIBezierPath *ellipsePath = [UIBezierPath bezierPathWithOvalInRect:availableRect];
-    [ellipsePath fill];
-    [ellipsePath stroke];
-    
-    CGRect teethRect = CGRectInset(availableRect, 3, 3);
+    CGRect availableRect = CGContextGetClipBoundingBox(ctx);
+    CGRect teethRect = CGRectInset(availableRect, 4, 4);
     [self _drawTeethInRect:teethRect context:ctx];
 }
 
@@ -65,12 +53,77 @@
     {
         CGContextRotateCTM(ctx, angle);
         if (((toothNumber+1)%5)!=0)
-            UIRectFill(toothSmallFrame);
+            CGContextFillRect(ctx, toothSmallFrame);
         else
-            UIRectFill(toothLargeFrame);
+            CGContextFillRect(ctx, toothLargeFrame);
     }
     
     CGContextRestoreGState(ctx);
+}
+
+@end
+
+@interface FWTClockBackgroundView ()
+@property (nonatomic, retain) FWTClockTeethLayer *teethLayer;
+@end
+
+@implementation FWTClockBackgroundView
+@synthesize teethLayer = _teethLayer;
+
+- (void)dealloc
+{
+    self.teethLayer = nil;
+    [super dealloc];
+}
+
++ (Class)layerClass
+{
+    return [CAShapeLayer class];
+}
+
+- (id)initWithFrame:(CGRect)frame
+{
+    if ((self = [super initWithFrame:frame]))
+    {
+        self.contentMode = UIViewContentModeRedraw;
+        self.backgroundColor = [UIColor clearColor];
+    }
+    return self;
+}
+
+- (void)setFrame:(CGRect)frame
+{
+    [super setFrame:frame];
+    
+    CGRect availableRect = CGRectInset(self.bounds, 2, 2);
+    self.shapeLayer.path = [UIBezierPath bezierPathWithOvalInRect:availableRect].CGPath;
+}
+
+- (void)setBounds:(CGRect)bounds
+{
+    [super setBounds:bounds];
+    
+    CGRect availableRect = CGRectInset(bounds, 2, 2);
+    self.shapeLayer.path = [UIBezierPath bezierPathWithOvalInRect:availableRect].CGPath;
+}
+
+- (void)layoutSubviews
+{
+    [super layoutSubviews];
+    
+    if (!self.teethLayer.superlayer)
+        [self.layer addSublayer:self.teethLayer];
+    
+    self.teethLayer.frame = self.bounds;
+}
+
+#pragma mark - Getters
+- (FWTClockTeethLayer *)teethLayer
+{
+    if (!self->_teethLayer)
+        self->_teethLayer = [[FWTClockTeethLayer alloc] init];
+    
+    return self->_teethLayer;
 }
 
 #pragma mark - Public

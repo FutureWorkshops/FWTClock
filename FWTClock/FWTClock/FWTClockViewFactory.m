@@ -23,6 +23,7 @@
             CGRect relativeFrame = CGRectMake(.0f, .0f, 1.0f, 1.0f);
             FWTClockBackgroundView *toReturn = [[[FWTClockBackgroundView alloc] initWithFrame:relativeFrame] autorelease];
             toReturn.shapeLayer.fillColor = [UIColor colorWithWhite:.875f alpha:1.0f].CGColor;
+            toReturn.shapeLayer.strokeColor = [UIColor blackColor].CGColor;
             return toReturn;
         } 
             

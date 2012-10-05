@@ -13,6 +13,7 @@
 @property (nonatomic, assign, getter = isInitializedWithDefaults) BOOL initializedWithDefaults;
 @property (nonatomic, retain) NSMutableArray *clockSubviewsSize;
 @property (nonatomic, retain) NSMutableArray *clockSubviews;
+@property (nonatomic, assign) BOOL subviewsNeedLayout;
 @end
 
 @implementation FWTClockView
@@ -53,6 +54,20 @@
     return self;
 }
 
+- (void)setFrame:(CGRect)frame
+{
+    CGRect previous = [[self valueForKey:@"frame"] CGRectValue];
+    self.subviewsNeedLayout = !CGSizeEqualToSize(previous.size, frame.size);
+    [super setFrame:frame];
+}
+
+- (void)setBounds:(CGRect)bounds
+{
+    CGRect previous = [[self valueForKey:@"bounds"] CGRectValue];
+    self.subviewsNeedLayout = !CGSizeEqualToSize(previous.size, bounds.size);
+    [super setBounds:bounds];
+}
+
 - (void)layoutSubviews
 {
     [super layoutSubviews];
@@ -61,18 +76,23 @@
     [self _initWithDefaultsIfNeeded];
     
     //
-    CGRect availableRect = UIEdgeInsetsInsetRect(self.bounds, self.edgeInsets);
-    CGPoint centerPoint = CGPointMake(CGRectGetMidX(availableRect), CGRectGetMidY(availableRect));
-    [self.clockSubviews enumerateObjectsUsingBlock:^(UIView *subview, NSUInteger idx, BOOL *stop) {
-                
-        if (!subview.superview)
-            [self addSubview:subview];
+    if (self.subviewsNeedLayout)
+    {
+        self.subviewsNeedLayout = NO;
         
-        //
-        CGSize absoluteSize = [self _absoluteSizeForClockSubview:idx];
-        subview.center = centerPoint;
-        subview.bounds = CGRectMake(.0f, .0f, absoluteSize.width, absoluteSize.height);
-    }];
+        CGRect availableRect = UIEdgeInsetsInsetRect(self.bounds, self.edgeInsets);
+        CGPoint centerPoint = CGPointMake(CGRectGetMidX(availableRect), CGRectGetMidY(availableRect));
+        [self.clockSubviews enumerateObjectsUsingBlock:^(UIView *subview, NSUInteger idx, BOOL *stop) {
+            
+            if (!subview.superview)
+                [self addSubview:subview];
+            
+            //
+            CGSize absoluteSize = [self _absoluteSizeForClockSubview:idx];
+            subview.center = centerPoint;
+            subview.bounds = CGRectMake(.0f, .0f, absoluteSize.width, absoluteSize.height);
+        }];
+    }
 }
 
 #pragma mark - Private
@@ -88,7 +108,6 @@
                 [indexSet addIndex:idx];
                 
                 needToInit = YES;
-//                *stop = YES;
             }
         }];
         
@@ -96,7 +115,6 @@
         {
             self.initializedWithDefaults = YES;
             [FWTClockViewFactory applyDefaultsToClockView:self forIndexes:indexSet style:self.style];
-//            [FWTClockViewFactory applyDefaultsToClockView:self];
         }
     }
 }
