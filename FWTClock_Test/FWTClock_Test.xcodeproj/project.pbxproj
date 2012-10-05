@@ -1,0 +1,304 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		A9801FE31611FCB100641C39 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A9801FE21611FCB100641C39 /* UIKit.framework */; };
+		A9801FE51611FCB100641C39 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A9801FE41611FCB100641C39 /* Foundation.framework */; };
+		A9801FE71611FCB100641C39 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A9801FE61611FCB100641C39 /* CoreGraphics.framework */; };
+		A9801FED1611FCB100641C39 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = A9801FEB1611FCB100641C39 /* InfoPlist.strings */; };
+		A9801FEF1611FCB100641C39 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A9801FEE1611FCB100641C39 /* main.m */; };
+		A9801FF31611FCB100641C39 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A9801FF21611FCB100641C39 /* AppDelegate.m */; };
+		A9801FF51611FCB100641C39 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = A9801FF41611FCB100641C39 /* Default.png */; };
+		A9801FF71611FCB100641C39 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A9801FF61611FCB100641C39 /* Default@2x.png */; };
+		A9801FF91611FCB100641C39 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A9801FF81611FCB100641C39 /* Default-568h@2x.png */; };
+		A98020001611FCC700641C39 /* libFWTClock.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A9801FFF1611FCC700641C39 /* libFWTClock.a */; };
+		A98020021611FCCF00641C39 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A98020011611FCCF00641C39 /* QuartzCore.framework */; };
+		A98020061611FD1600641C39 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A98020051611FD1600641C39 /* ViewController.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		A9801FDE1611FCB100641C39 /* FWTClock_Test.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FWTClock_Test.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		A9801FE21611FCB100641C39 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		A9801FE41611FCB100641C39 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		A9801FE61611FCB100641C39 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		A9801FEA1611FCB100641C39 /* FWTClock_Test-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "FWTClock_Test-Info.plist"; sourceTree = "<group>"; };
+		A9801FEC1611FCB100641C39 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		A9801FEE1611FCB100641C39 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		A9801FF01611FCB100641C39 /* FWTClock_Test-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "FWTClock_Test-Prefix.pch"; sourceTree = "<group>"; };
+		A9801FF11611FCB100641C39 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		A9801FF21611FCB100641C39 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		A9801FF41611FCB100641C39 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
+		A9801FF61611FCB100641C39 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
+		A9801FF81611FCB100641C39 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		A9801FFF1611FCC700641C39 /* libFWTClock.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libFWTClock.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		A98020011611FCCF00641C39 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		A98020041611FD1600641C39 /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		A98020051611FD1600641C39 /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		A9801FDB1611FCB100641C39 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A98020021611FCCF00641C39 /* QuartzCore.framework in Frameworks */,
+				A98020001611FCC700641C39 /* libFWTClock.a in Frameworks */,
+				A9801FE31611FCB100641C39 /* UIKit.framework in Frameworks */,
+				A9801FE51611FCB100641C39 /* Foundation.framework in Frameworks */,
+				A9801FE71611FCB100641C39 /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		A9801FD31611FCB100641C39 = {
+			isa = PBXGroup;
+			children = (
+				A9801FE81611FCB100641C39 /* FWTClock_Test */,
+				A9801FE11611FCB100641C39 /* Frameworks */,
+				A9801FDF1611FCB100641C39 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		A9801FDF1611FCB100641C39 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				A9801FDE1611FCB100641C39 /* FWTClock_Test.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		A9801FE11611FCB100641C39 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				A9801FFF1611FCC700641C39 /* libFWTClock.a */,
+				A98020011611FCCF00641C39 /* QuartzCore.framework */,
+				A9801FE21611FCB100641C39 /* UIKit.framework */,
+				A9801FE41611FCB100641C39 /* Foundation.framework */,
+				A9801FE61611FCB100641C39 /* CoreGraphics.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		A9801FE81611FCB100641C39 /* FWTClock_Test */ = {
+			isa = PBXGroup;
+			children = (
+				A9801FF11611FCB100641C39 /* AppDelegate.h */,
+				A9801FF21611FCB100641C39 /* AppDelegate.m */,
+				A98020041611FD1600641C39 /* ViewController.h */,
+				A98020051611FD1600641C39 /* ViewController.m */,
+				A9801FE91611FCB100641C39 /* Supporting Files */,
+			);
+			path = FWTClock_Test;
+			sourceTree = "<group>";
+		};
+		A9801FE91611FCB100641C39 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				A9801FEA1611FCB100641C39 /* FWTClock_Test-Info.plist */,
+				A9801FEB1611FCB100641C39 /* InfoPlist.strings */,
+				A9801FEE1611FCB100641C39 /* main.m */,
+				A9801FF01611FCB100641C39 /* FWTClock_Test-Prefix.pch */,
+				A9801FF41611FCB100641C39 /* Default.png */,
+				A9801FF61611FCB100641C39 /* Default@2x.png */,
+				A9801FF81611FCB100641C39 /* Default-568h@2x.png */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		A9801FDD1611FCB100641C39 /* FWTClock_Test */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A9801FFC1611FCB100641C39 /* Build configuration list for PBXNativeTarget "FWTClock_Test" */;
+			buildPhases = (
+				A9801FDA1611FCB100641C39 /* Sources */,
+				A9801FDB1611FCB100641C39 /* Frameworks */,
+				A9801FDC1611FCB100641C39 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = FWTClock_Test;
+			productName = FWTClock_Test;
+			productReference = A9801FDE1611FCB100641C39 /* FWTClock_Test.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		A9801FD51611FCB100641C39 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0450;
+				ORGANIZATIONNAME = "Marco Meschini";
+			};
+			buildConfigurationList = A9801FD81611FCB100641C39 /* Build configuration list for PBXProject "FWTClock_Test" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = A9801FD31611FCB100641C39;
+			productRefGroup = A9801FDF1611FCB100641C39 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				A9801FDD1611FCB100641C39 /* FWTClock_Test */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		A9801FDC1611FCB100641C39 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A9801FED1611FCB100641C39 /* InfoPlist.strings in Resources */,
+				A9801FF51611FCB100641C39 /* Default.png in Resources */,
+				A9801FF71611FCB100641C39 /* Default@2x.png in Resources */,
+				A9801FF91611FCB100641C39 /* Default-568h@2x.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		A9801FDA1611FCB100641C39 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A9801FEF1611FCB100641C39 /* main.m in Sources */,
+				A9801FF31611FCB100641C39 /* AppDelegate.m in Sources */,
+				A98020061611FD1600641C39 /* ViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		A9801FEB1611FCB100641C39 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				A9801FEC1611FCB100641C39 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		A9801FFA1611FCB100641C39 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../FWTClock/FWTClock/\"";
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		A9801FFB1611FCB100641C39 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../FWTClock/FWTClock/\"";
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		A9801FFD1611FCB100641C39 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "FWTClock_Test/FWTClock_Test-Prefix.pch";
+				INFOPLIST_FILE = "FWTClock_Test/FWTClock_Test-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../../../Library/Developer/Xcode/DerivedData/FWTClock-fssbcgeopqfzzadgsnftsurzprof/Build/Products/Debug-iphoneos\"",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		A9801FFE1611FCB100641C39 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "FWTClock_Test/FWTClock_Test-Prefix.pch";
+				INFOPLIST_FILE = "FWTClock_Test/FWTClock_Test-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../../../Library/Developer/Xcode/DerivedData/FWTClock-fssbcgeopqfzzadgsnftsurzprof/Build/Products/Debug-iphoneos\"",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		A9801FD81611FCB100641C39 /* Build configuration list for PBXProject "FWTClock_Test" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A9801FFA1611FCB100641C39 /* Debug */,
+				A9801FFB1611FCB100641C39 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A9801FFC1611FCB100641C39 /* Build configuration list for PBXNativeTarget "FWTClock_Test" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A9801FFD1611FCB100641C39 /* Debug */,
+				A9801FFE1611FCB100641C39 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = A9801FD51611FCB100641C39 /* Project object */;
+}

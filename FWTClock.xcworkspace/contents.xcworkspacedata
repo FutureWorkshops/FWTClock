@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workspace
+   version = "1.0">
+   <FileRef
+      location = "group:FWTClock/FWTClock.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:FWTClock_Test/FWTClock_Test.xcodeproj">
+   </FileRef>
+</Workspace>
