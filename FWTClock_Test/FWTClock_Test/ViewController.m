@@ -48,6 +48,7 @@
     if (!self->_clock)
     {
         self->_clock = [[FWTClock alloc] init];
+        self->_clock.oscillatorType = FWTClockOscillatorTypeMechanical;
         
 //        self->_clock.clockView.style = FWTClockViewStyleNight;
      
