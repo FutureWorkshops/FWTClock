@@ -41,7 +41,7 @@
         case FWTClockSubviewHandMinute:
         {
             FWTClockHandView *toReturn = [[[FWTClockHandView alloc] init] autorelease];
-            toReturn.start = .15f;
+            toReturn.start = .125f;
             toReturn.end = .55f;
             toReturn.frame = CGRectMake(.0f, .0f, .040816f, 1.0f);//.357143f);
             toReturn.shapeLayer.strokeColor = [UIColor colorWithWhite:.7f alpha:.5f].CGColor;
@@ -102,7 +102,7 @@
         case FWTClockSubviewHandMinute:
         {
             FWTClockHandView *toReturn = [[[FWTClockHandView alloc] init] autorelease];
-            toReturn.start = .15f;
+            toReturn.start = .125f;
             toReturn.end = .55f;
             toReturn.frame = CGRectMake(.0f, .0f, .040816f, 1.0f);//.357143f);
             toReturn.shapeLayer.fillColor = [UIColor colorWithWhite:.9f alpha:1.0f].CGColor;

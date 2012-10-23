@@ -9,14 +9,7 @@
 #import "FWTClock.h"
 #import <QuartzCore/QuartzCore.h>
 
-struct FWClockDateComponents
-{
-    int hours;
-    int minutes;
-    int seconds;
-};
-
-float Degrees2Radians(float degrees) { return degrees * M_PI / 180; }
+float FWTDegrees2Radians(float degrees) { return degrees * M_PI / 180; }
 
 NSString *const keySecondHandAnimation = @"keySecondHandAnimation";
 
@@ -58,20 +51,6 @@ NSString *const keySecondHandAnimation = @"keySecondHandAnimation";
 }
 
 #pragma mark - Private
-- (struct FWClockDateComponents)_dateComponentsFromDate:(NSDate *)date
-{
-    NSUInteger unitFlags = NSHourCalendarUnit|NSMinuteCalendarUnit|NSSecondCalendarUnit;
-    NSDateComponents *dateComponents = [self.calendar components:unitFlags fromDate:date];
-    
-    struct FWClockDateComponents toReturn;
-    
-    toReturn.hours = [dateComponents hour];
-    toReturn.minutes = [dateComponents minute];
-    toReturn.seconds = [dateComponents second];
-    
-    return toReturn;
-}
-
 - (void)_tick
 {
     __block typeof(self) myself = self;
@@ -84,6 +63,20 @@ NSString *const keySecondHandAnimation = @"keySecondHandAnimation";
 }
 
 #pragma mark - Public
+- (struct FWTClockDateComponents)dateComponentsFromDate:(NSDate *)date
+{
+    NSUInteger unitFlags = NSHourCalendarUnit|NSMinuteCalendarUnit|NSSecondCalendarUnit;
+    NSDateComponents *dateComponents = [self.calendar components:unitFlags fromDate:date];
+    
+    struct FWTClockDateComponents toReturn = {
+        .hours   = [dateComponents hour],
+        .minutes = [dateComponents minute],
+        .seconds = [dateComponents second],
+    };
+    
+    return toReturn;
+}
+
 - (void)setDate:(NSDate *)date
 {
     [self setDate:date animated:NO];
@@ -107,17 +100,17 @@ NSString *const keySecondHandAnimation = @"keySecondHandAnimation";
                     return angle > 360 ? angle - 360 : angle;
                 };
                 
-                struct FWClockDateComponents dateComponents = [self _dateComponentsFromDate:self->_date];
+                struct FWTClockDateComponents dateComponents = [self dateComponentsFromDate:self->_date];
                 CGFloat newHourAngle = normalizeAngle(0.5f * ((dateComponents.hours * 60.0f) + dateComponents.minutes));
                 CGFloat newMinuteAngle = normalizeAngle(6.0f * dateComponents.minutes);
                 CGFloat newSecondAngle = normalizeAngle(6.0f * dateComponents.seconds);
                 
                 void(^rotateHourAndMinuteHands)() = ^(void) {
-                    myself.clockView.handHourView.transform = CGAffineTransformMakeRotation(Degrees2Radians(newHourAngle));
-                    myself.clockView.handMinuteView.transform = CGAffineTransformMakeRotation(Degrees2Radians(newMinuteAngle));
+                    myself.clockView.handHourView.transform = CGAffineTransformMakeRotation(FWTDegrees2Radians(newHourAngle));
+                    myself.clockView.handMinuteView.transform = CGAffineTransformMakeRotation(FWTDegrees2Radians(newMinuteAngle));
                     
                     if (myself.oscillatorType == FWTClockOscillatorTypeQuartz)
-                        myself.clockView.handSecondView.transform = CGAffineTransformMakeRotation(Degrees2Radians(newSecondAngle));
+                        myself.clockView.handSecondView.transform = CGAffineTransformMakeRotation(FWTDegrees2Radians(newSecondAngle));
                 };
                 
                 if (animated)
@@ -126,10 +119,10 @@ NSString *const keySecondHandAnimation = @"keySecondHandAnimation";
                     
                     if (![myself.clockView.handSecondView.layer animationForKey:keySecondHandAnimation] && myself.oscillatorType == FWTClockOscillatorTypeMechanical)
                     {
-                        CGFloat radians = Degrees2Radians(newSecondAngle);
+                        CGFloat radians = FWTDegrees2Radians(newSecondAngle);
                         myself.clockView.handSecondView.transform = CGAffineTransformMakeRotation(radians);
                         
-                        CGFloat circleAngle = 2*M_PI+Degrees2Radians(newSecondAngle);
+                        CGFloat circleAngle = 2*M_PI+FWTDegrees2Radians(newSecondAngle);
                         circleAngle = radians > M_PI ? circleAngle - 2*M_PI : circleAngle;
                         
                         CABasicAnimation* spinAnimation = [CABasicAnimation animationWithKeyPath:@"transform.rotation"];
@@ -143,7 +136,7 @@ NSString *const keySecondHandAnimation = @"keySecondHandAnimation";
                 {
                     rotateHourAndMinuteHands();
                     
-                    myself.clockView.handSecondView.transform = CGAffineTransformMakeRotation(Degrees2Radians(newSecondAngle));
+                    myself.clockView.handSecondView.transform = CGAffineTransformMakeRotation(FWTDegrees2Radians(newSecondAngle));
                 }
             }];
         }
@@ -155,18 +148,30 @@ NSString *const keySecondHandAnimation = @"keySecondHandAnimation";
     if (self->_oscillatorType != oscillatorType)
     {
         self->_oscillatorType = oscillatorType;
-        
-        if ([self isAnimating])
+
+        if ([self isTicking])
         {
-            [self toggle];  // first stop
-            [self toggle];  // then restart
+            [self stop];  // first stop
+            [self start];  // then restart
         }
     }
 }
 
-- (void)toggle
+- (void)start
 {
-    if ([self isAnimating])
+    if (![self isTicking])
+    {
+        self.queue = [[[NSOperationQueue alloc] init] autorelease];
+        [self _tick];
+        
+        //
+        self.ticking = YES;
+    }
+}
+
+- (void)stop
+{
+    if ([self isTicking])
     {
         //
         [self.queue cancelAllOperations];
@@ -183,14 +188,15 @@ NSString *const keySecondHandAnimation = @"keySecondHandAnimation";
                 myself.clockView.handSecondView.transform = t;
             }];
         }
+     
+        //
+        self.ticking = NO;
     }
-    else
-    {        
-        self.queue = [[[NSOperationQueue alloc] init] autorelease];
-        [self _tick];
-    }
-    
-    self.animating = !self.animating;
+}
+
+- (void)toggle
+{
+    [self isTicking] ? [self stop] : [self start];
 }
 
 

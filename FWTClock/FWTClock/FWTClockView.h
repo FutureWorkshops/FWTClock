@@ -22,6 +22,15 @@ typedef NS_ENUM(NSInteger, FWTClockViewStyle) {
     FWTClockViewStyleNight,
 };
 
+//enum {
+//    FWTClock = 1UL << 0,
+//    FWPopoverArrowDirectionUp = 1UL << 1,
+//    FWPopoverArrowDirectionDown = 1UL << 2,
+//    FWPopoverArrowDirectionLeft = 1UL << 3,
+//    FWPopoverArrowDirectionRight = 1UL << 4,
+//};
+//typedef NSUInteger FWTClockHand;
+
 @interface FWTClockView : UIView
 
 @property (nonatomic, assign) UIEdgeInsets edgeInsets;

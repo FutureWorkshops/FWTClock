@@ -17,23 +17,28 @@
 
 - (void)setFrame:(CGRect)frame
 {
-    CGRect previous = [[self valueForKey:@"frame"] CGRectValue];
-    BOOL needsRefresh = !CGSizeEqualToSize(previous.size, frame.size);
+    BOOL needsRefresh = [self _shapeNeedsRefreshForKey:@"frame" newRect:frame];
     [super setFrame:frame];
-    
-    if (CGRectEqualToRect(frame, CGRectZero))
-        self.shapeLayer.path = nil;
-    else if (needsRefresh)
-        [self updateShapePath];
+    [self _restoreShapeForFrame:frame needsRefresh:needsRefresh];
 }
 
 - (void)setBounds:(CGRect)bounds
 {
-    CGRect previous = [[self valueForKey:@"bounds"] CGRectValue];
-    BOOL needsRefresh = !CGSizeEqualToSize(previous.size, bounds.size);
+    BOOL needsRefresh = [self _shapeNeedsRefreshForKey:@"bounds" newRect:bounds];
     [super setBounds:bounds];
-    
-    if (CGRectEqualToRect(bounds, CGRectZero))
+    [self _restoreShapeForFrame:bounds needsRefresh:needsRefresh];
+}
+
+#pragma mark - Private
+- (BOOL)_shapeNeedsRefreshForKey:(NSString *)key newRect:(CGRect)rect
+{
+    CGRect previous = [[self valueForKey:key] CGRectValue];
+    return !CGSizeEqualToSize(previous.size, rect.size);
+}
+
+- (void)_restoreShapeForFrame:(CGRect)rect needsRefresh:(BOOL)needsRefresh
+{
+    if (CGRectEqualToRect(rect, CGRectZero))
         self.shapeLayer.path = nil;
     else if (needsRefresh)
         [self updateShapePath];
