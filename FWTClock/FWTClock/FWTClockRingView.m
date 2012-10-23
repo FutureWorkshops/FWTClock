@@ -10,27 +10,11 @@
 
 @implementation FWTClockRingView
 
-- (id)initWithFrame:(CGRect)frame
+#pragma mark - Overrides
+- (void)updateShapePath
 {
-    if ((self = [super initWithFrame:frame]))
-    {
-        self.contentMode = UIViewContentModeRedraw;
-        self.backgroundColor = [UIColor clearColor];
-    }
-    return self;
-}
-
-- (void)drawRect:(CGRect)rect
-{
-    CGRect availableRect = CGRectInset(rect, 2, 2);
-    CGContextRef ctx = UIGraphicsGetCurrentContext();
-    
-    //
-    CGColorRef colorRef = [UIColor colorWithWhite:.9f alpha:1.0f].CGColor;
-    CGContextSetFillColorWithColor(ctx, colorRef);
-    UIBezierPath *ellipsePath = [UIBezierPath bezierPathWithOvalInRect:availableRect];
-    [ellipsePath fill];
-    [ellipsePath stroke];
+    CGRect availableRect = CGRectInset(self.bounds, 2, 2);
+    self.shapeLayer.path = [UIBezierPath bezierPathWithOvalInRect:availableRect].CGPath;
 }
 
 @end

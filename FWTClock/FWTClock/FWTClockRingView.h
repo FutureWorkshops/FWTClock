@@ -6,8 +6,8 @@
 //  Copyright (c) 2012 Marco Meschini. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "FWTClockShapeView.h"
 
-@interface FWTClockRingView : UIView
+@interface FWTClockRingView : FWTClockShapeView
 
 @end

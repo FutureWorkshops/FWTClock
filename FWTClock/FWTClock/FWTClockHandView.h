@@ -6,13 +6,11 @@
 //  Copyright (c) 2012 Marco Meschini. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
-#import <QuartzCore/QuartzCore.h>
+#import "FWTClockShapeView.h"
 
-@interface FWTClockHandView : UIView
+@interface FWTClockHandView : FWTClockShapeView
 
 @property (nonatomic, assign) CGFloat start, end;
 @property (nonatomic, assign) CGFloat horizontalInset;
 
-- (CAShapeLayer *)shapeLayer;
 @end

@@ -16,11 +16,6 @@
 
 @implementation FWTClockHandView
 
-+ (Class)layerClass
-{
-    return [CAShapeLayer class];
-}
-
 - (id)initWithFrame:(CGRect)frame
 {
     if ((self = [super initWithFrame:frame]))
@@ -36,23 +31,10 @@
     return self;
 }
 
-- (void)setBounds:(CGRect)bounds
+#pragma mark - Overrides
+- (void)updateShapePath
 {
-    [super setBounds:bounds];
-    
-//    self.layer.borderWidth = 1.0f;
-    
-    [self _refreshShapeLayer];
-}
-
-#pragma mark - Private
-- (void)_refreshShapeLayer
-{
-    if (CGRectEqualToRect(self.bounds, CGRectZero))
-    {
-        self.shapeLayer.path = nil;
-        return;
-    }
+    [super updateShapePath];
     
     CGRect currentShapeLayerPathRect = CGRectInset(self.bounds, self.horizontalInset, .0f);
     if (!self.shapeLayer.path || !CGRectEqualToRect(self.shapeLayerPathRect, currentShapeLayerPathRect))
@@ -67,12 +49,6 @@
         self.shapeLayer.path = bp.CGPath;
         self.shapeLayer.shadowPath = bp.CGPath;
     }
-}
-
-#pragma mark - Public
-- (CAShapeLayer *)shapeLayer
-{
-    return (CAShapeLayer *)self.layer;
 }
 
 @end

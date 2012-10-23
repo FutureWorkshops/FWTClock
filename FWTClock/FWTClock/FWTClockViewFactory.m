@@ -52,16 +52,18 @@
         {
             FWTClockHandView *toReturn = [[[FWTClockHandView alloc] init] autorelease];
             toReturn.start = .05f;
-            toReturn.end = .6f;
-            toReturn.frame = CGRectMake(.0f, .0f, .033510f, 1.0f);//.438163f);
+            toReturn.end = .575f;
+            toReturn.frame = CGRectMake(.0f, .0f, .025510f, 1.0f);//.438163f);
             toReturn.shapeLayer.fillColor = [UIColor redColor].CGColor;
             return toReturn;
         } 
             
         case FWTClockSubviewRing:
         {
-            CGRect relativeFrame = CGRectMake(.0f, .0f, .05f, .05f);
-            UIView *toReturn = [[[FWTClockRingView alloc] initWithFrame:relativeFrame] autorelease];
+            CGRect relativeFrame = CGRectMake(.0f, .0f, .06f, .06f);
+            FWTClockRingView *toReturn = [[[FWTClockRingView alloc] initWithFrame:relativeFrame] autorelease];
+            toReturn.shapeLayer.fillColor = [UIColor colorWithWhite:.9f alpha:1.0f].CGColor;
+            toReturn.shapeLayer.strokeColor = [UIColor blackColor].CGColor;
             return toReturn;
         }
             
@@ -120,8 +122,10 @@
             
         case FWTClockSubviewRing:
         {
-            CGRect relativeFrame = CGRectMake(.0f, .0f, .05f, .05f);
-            UIView *toReturn = [[[FWTClockRingView alloc] initWithFrame:relativeFrame] autorelease];
+            CGRect relativeFrame = CGRectMake(.0f, .0f, .06f, .06f);
+            FWTClockRingView *toReturn = [[[FWTClockRingView alloc] initWithFrame:relativeFrame] autorelease];
+            toReturn.shapeLayer.fillColor = [UIColor colorWithWhite:.9f alpha:1.0f].CGColor;
+            toReturn.shapeLayer.strokeColor = [UIColor blackColor].CGColor;
             return toReturn;
         }
             

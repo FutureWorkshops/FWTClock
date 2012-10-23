@@ -186,7 +186,7 @@ NSString *const keySecondHandAnimation = @"keySecondHandAnimation";
     }
     else
     {        
-        self.queue = [[NSOperationQueue alloc] init];
+        self.queue = [[[NSOperationQueue alloc] init] autorelease];
         [self _tick];
     }
     

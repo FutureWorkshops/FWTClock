@@ -76,37 +76,6 @@
     [super dealloc];
 }
 
-+ (Class)layerClass
-{
-    return [CAShapeLayer class];
-}
-
-- (id)initWithFrame:(CGRect)frame
-{
-    if ((self = [super initWithFrame:frame]))
-    {
-        self.contentMode = UIViewContentModeRedraw;
-        self.backgroundColor = [UIColor clearColor];
-    }
-    return self;
-}
-
-- (void)setFrame:(CGRect)frame
-{
-    [super setFrame:frame];
-    
-    CGRect availableRect = CGRectInset(self.bounds, 2, 2);
-    self.shapeLayer.path = [UIBezierPath bezierPathWithOvalInRect:availableRect].CGPath;
-}
-
-- (void)setBounds:(CGRect)bounds
-{
-    [super setBounds:bounds];
-    
-    CGRect availableRect = CGRectInset(bounds, 2, 2);
-    self.shapeLayer.path = [UIBezierPath bezierPathWithOvalInRect:availableRect].CGPath;
-}
-
 - (void)layoutSubviews
 {
     [super layoutSubviews];
@@ -115,6 +84,13 @@
         [self.layer addSublayer:self.teethLayer];
     
     self.teethLayer.frame = self.bounds;
+}
+
+#pragma mark - Overrides
+- (void)updateShapePath
+{
+    CGRect availableRect = CGRectInset(self.bounds, 2, 2);
+    self.shapeLayer.path = [UIBezierPath bezierPathWithOvalInRect:availableRect].CGPath;
 }
 
 #pragma mark - Getters
@@ -126,9 +102,4 @@
     return self->_teethLayer;
 }
 
-#pragma mark - Public
-- (CAShapeLayer *)shapeLayer
-{
-    return (CAShapeLayer *)self.layer;
-}
 @end

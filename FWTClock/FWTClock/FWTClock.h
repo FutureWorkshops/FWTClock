@@ -9,7 +9,8 @@
 #import <Foundation/Foundation.h>
 #import "FWTClockView.h"
 
-typedef NS_ENUM(NSInteger, FWTClockOscillatorType) {
+typedef NS_ENUM(NSInteger, FWTClockOscillatorType)
+{
     FWTClockOscillatorTypeQuartz,
     FWTClockOscillatorTypeMechanical,
 };
