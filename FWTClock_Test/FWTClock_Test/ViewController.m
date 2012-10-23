@@ -49,9 +49,8 @@
     {
         self->_clock = [[FWTClock alloc] init];
         self->_clock.oscillatorType = FWTClockOscillatorTypeMechanical;
-        
+//        self->_clock.clockView.subviewsMask = FWTClockSubviewBackground|FWTClockSubviewHandHour|FWTClockSubviewHandMinute|FWTClockSubviewRing;
 //        self->_clock.clockView.style = FWTClockViewStyleNight;
-
     }
     
     return self->_clock;

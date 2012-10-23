@@ -117,19 +117,22 @@ NSString *const keySecondHandAnimation = @"keySecondHandAnimation";
                 {
                     [UIView animateWithDuration:.2f animations:rotateHourAndMinuteHands];
                     
-                    if (![myself.clockView.handSecondView.layer animationForKey:keySecondHandAnimation] && myself.oscillatorType == FWTClockOscillatorTypeMechanical)
+                    if (myself.clockView.subviewsMask & FWTClockSubviewHandSecond)
                     {
-                        CGFloat radians = FWTDegrees2Radians(newSecondAngle);
-                        myself.clockView.handSecondView.transform = CGAffineTransformMakeRotation(radians);
-                        
-                        CGFloat circleAngle = 2*M_PI+FWTDegrees2Radians(newSecondAngle);
-                        circleAngle = radians > M_PI ? circleAngle - 2*M_PI : circleAngle;
-                        
-                        CABasicAnimation* spinAnimation = [CABasicAnimation animationWithKeyPath:@"transform.rotation"];
-                        spinAnimation.toValue = [NSNumber numberWithFloat:circleAngle];
-                        spinAnimation.duration = 60.0f;
-                        spinAnimation.repeatCount = INFINITY;
-                        [myself.clockView.handSecondView.layer addAnimation:spinAnimation forKey:keySecondHandAnimation];
+                        if (![myself.clockView.handSecondView.layer animationForKey:keySecondHandAnimation] && myself.oscillatorType == FWTClockOscillatorTypeMechanical)
+                        {
+                            CGFloat radians = FWTDegrees2Radians(newSecondAngle);
+                            myself.clockView.handSecondView.transform = CGAffineTransformMakeRotation(radians);
+                            
+                            CGFloat circleAngle = 2*M_PI+FWTDegrees2Radians(newSecondAngle);
+                            circleAngle = radians > M_PI ? circleAngle - 2*M_PI : circleAngle;
+                            
+                            CABasicAnimation* spinAnimation = [CABasicAnimation animationWithKeyPath:@"transform.rotation"];
+                            spinAnimation.toValue = [NSNumber numberWithFloat:circleAngle];
+                            spinAnimation.duration = 60.0f;
+                            spinAnimation.repeatCount = INFINITY;
+                            [myself.clockView.handSecondView.layer addAnimation:spinAnimation forKey:keySecondHandAnimation];
+                        }
                     }
                 }
                 else
@@ -178,7 +181,7 @@ NSString *const keySecondHandAnimation = @"keySecondHandAnimation";
         self.queue = nil;
         
         //
-        if (self.oscillatorType == FWTClockOscillatorTypeMechanical)
+        if ((self.clockView.subviewsMask & FWTClockSubviewHandSecond) && self.oscillatorType == FWTClockOscillatorTypeMechanical)
         {
             __block typeof(self) myself = self;
             [[NSOperationQueue mainQueue] addOperationWithBlock:^{
