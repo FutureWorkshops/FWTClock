@@ -9,11 +9,13 @@
 #import <Foundation/Foundation.h>
 #import "FWTClockView.h"
 
-float FWTDegrees2Radians(float degrees);
+CGFloat(^FWTDegrees2RadiansBlock)(CGFloat);
+CGFloat(^FWTNormalizeAngleBlock)(CGFloat);
 
 typedef NS_ENUM(NSInteger, FWTClockOscillatorType)
 {
     FWTClockOscillatorTypeQuartz,
+    FWTClockOscillatorTypeQuartzSmallJump,
     FWTClockOscillatorTypeMechanical,
 };
 

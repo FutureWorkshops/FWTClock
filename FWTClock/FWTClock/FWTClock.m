@@ -9,7 +9,14 @@
 #import "FWTClock.h"
 #import <QuartzCore/QuartzCore.h>
 
-float FWTDegrees2Radians(float degrees) { return degrees * M_PI / 180; }
+CGFloat(^FWTDegrees2RadiansBlock)(CGFloat) = ^(CGFloat degrees){
+    CGFloat toReturn = degrees * M_PI / 180;
+    return toReturn;
+};
+
+CGFloat(^FWTNormalizeAngleBlock)(CGFloat) = ^(CGFloat angle){
+    return angle > 360 ? angle - 360 : angle;
+};
 
 NSString *const keySecondHandAnimation = @"keySecondHandAnimation";
 
@@ -55,7 +62,8 @@ NSString *const keySecondHandAnimation = @"keySecondHandAnimation";
 {
     __block typeof(self) myself = self;
     NSOperation *op = [NSBlockOperation blockOperationWithBlock:^{
-        [myself setDate:[NSDate date] animated:YES];
+        BOOL animated = myself.oscillatorType == FWTClockOscillatorTypeMechanical ? YES : NO;
+        [myself setDate:[NSDate date] animated:animated];
         [NSThread sleepForTimeInterval:1];
     }];
     op.completionBlock = ^{[self _tick];};
@@ -95,22 +103,18 @@ NSString *const keySecondHandAnimation = @"keySecondHandAnimation";
         {
             __block typeof(self) myself = self;
             [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-                
-                CGFloat(^normalizeAngle)(CGFloat) = ^(CGFloat angle){
-                    return angle > 360 ? angle - 360 : angle;
-                };
-                
+                                
                 struct FWTClockDateComponents dateComponents = [self dateComponentsFromDate:self->_date];
-                CGFloat newHourAngle = normalizeAngle(0.5f * ((dateComponents.hours * 60.0f) + dateComponents.minutes));
-                CGFloat newMinuteAngle = normalizeAngle(6.0f * dateComponents.minutes);
-                CGFloat newSecondAngle = normalizeAngle(6.0f * dateComponents.seconds);
+                CGFloat newHourAngle = FWTNormalizeAngleBlock(0.5f * ((dateComponents.hours * 60.0f) + dateComponents.minutes));
+                CGFloat newMinuteAngle = FWTNormalizeAngleBlock(6.0f * dateComponents.minutes);
+                CGFloat newSecondAngle = FWTNormalizeAngleBlock(6.0f * dateComponents.seconds);
                 
                 void(^rotateHourAndMinuteHands)() = ^(void) {
-                    myself.clockView.handHourView.transform = CGAffineTransformMakeRotation(FWTDegrees2Radians(newHourAngle));
-                    myself.clockView.handMinuteView.transform = CGAffineTransformMakeRotation(FWTDegrees2Radians(newMinuteAngle));
+                    myself.clockView.handHourView.transform = CGAffineTransformMakeRotation(FWTDegrees2RadiansBlock(newHourAngle));
+                    myself.clockView.handMinuteView.transform = CGAffineTransformMakeRotation(FWTDegrees2RadiansBlock(newMinuteAngle));
                     
                     if (myself.oscillatorType == FWTClockOscillatorTypeQuartz)
-                        myself.clockView.handSecondView.transform = CGAffineTransformMakeRotation(FWTDegrees2Radians(newSecondAngle));
+                        myself.clockView.handSecondView.transform = CGAffineTransformMakeRotation(FWTDegrees2RadiansBlock(newSecondAngle+newSecondAngle));
                 };
                 
                 if (animated)
@@ -121,10 +125,10 @@ NSString *const keySecondHandAnimation = @"keySecondHandAnimation";
                     {
                         if (![myself.clockView.handSecondView.layer animationForKey:keySecondHandAnimation] && myself.oscillatorType == FWTClockOscillatorTypeMechanical)
                         {
-                            CGFloat radians = FWTDegrees2Radians(newSecondAngle);
+                            CGFloat radians = FWTDegrees2RadiansBlock(newSecondAngle);
                             myself.clockView.handSecondView.transform = CGAffineTransformMakeRotation(radians);
                             
-                            CGFloat circleAngle = 2*M_PI+FWTDegrees2Radians(newSecondAngle);
+                            CGFloat circleAngle = 2*M_PI+FWTDegrees2RadiansBlock(newSecondAngle);
                             circleAngle = radians > M_PI ? circleAngle - 2*M_PI : circleAngle;
                             
                             CABasicAnimation* spinAnimation = [CABasicAnimation animationWithKeyPath:@"transform.rotation"];
@@ -138,8 +142,16 @@ NSString *const keySecondHandAnimation = @"keySecondHandAnimation";
                 else
                 {
                     rotateHourAndMinuteHands();
-                    
-                    myself.clockView.handSecondView.transform = CGAffineTransformMakeRotation(FWTDegrees2Radians(newSecondAngle));
+                  
+                    if (self.oscillatorType == FWTClockOscillatorTypeQuartzSmallJump)
+                    {
+                        CGFloat ratio = .0075f;
+                        myself.clockView.handSecondView.transform = CGAffineTransformMakeRotation(FWTDegrees2RadiansBlock(newSecondAngle + newSecondAngle*ratio));
+                        [UIView animateWithDuration:.1f animations:^{
+                            myself.clockView.handSecondView.transform = CGAffineTransformMakeRotation(FWTDegrees2RadiansBlock(newSecondAngle));
+                        }];
+                    } else
+                        myself.clockView.handSecondView.transform = CGAffineTransformMakeRotation(FWTDegrees2RadiansBlock(newSecondAngle));
                 }
             }];
         }
