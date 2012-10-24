@@ -102,8 +102,7 @@ NSString *const keySecondHandAnimation = @"keySecondHandAnimation";
         if (self->_date)
         {
             __block typeof(self) myself = self;
-            [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-                                
+            void(^FWTUpdateHandsBlock)() = ^() {
                 struct FWTClockDateComponents dateComponents = [self dateComponentsFromDate:self->_date];
                 CGFloat newHourAngle = FWTNormalizeAngleBlock(0.5f * ((dateComponents.hours * 60.0f) + dateComponents.minutes));
                 CGFloat newMinuteAngle = FWTNormalizeAngleBlock(6.0f * dateComponents.minutes);
@@ -142,7 +141,7 @@ NSString *const keySecondHandAnimation = @"keySecondHandAnimation";
                 else
                 {
                     rotateHourAndMinuteHands();
-                  
+                    
                     if (self.oscillatorType == FWTClockOscillatorTypeQuartzSmallJump)
                     {
                         CGFloat ratio = .0075f;
@@ -153,7 +152,13 @@ NSString *const keySecondHandAnimation = @"keySecondHandAnimation";
                     } else
                         myself.clockView.handSecondView.transform = CGAffineTransformMakeRotation(FWTDegrees2RadiansBlock(newSecondAngle));
                 }
-            }];
+
+            };
+            
+            if ([self isTicking])
+                [[NSOperationQueue mainQueue] addOperationWithBlock:FWTUpdateHandsBlock];
+            else
+                FWTUpdateHandsBlock();
         }
     }
 }
