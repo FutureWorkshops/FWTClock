@@ -23,6 +23,7 @@ NSString *const keySecondHandAnimation = @"keySecondHandAnimation";
 @interface FWTClock ()
 @property (nonatomic, readwrite, retain) FWTClockView *clockView;
 @property (nonatomic, retain) NSOperationQueue *queue;
+@property (nonatomic, readwrite, getter = isTicking) BOOL ticking;
 @end
 
 @implementation FWTClock

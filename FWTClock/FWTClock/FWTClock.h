@@ -37,7 +37,7 @@ struct FWTClockDateComponents
 @property (nonatomic, readonly, retain) FWTClockView *clockView;
 @property (nonatomic, retain) NSDate *date;
 @property (nonatomic, retain) NSCalendar *calendar;
-@property (nonatomic, getter = isTicking) BOOL ticking;
+@property (nonatomic, readonly, getter = isTicking) BOOL ticking;
 @property (nonatomic, assign) FWTClockOscillatorType oscillatorType;
 
 //

@@ -1,9 +1,9 @@
 #FWTClock
 
-![FWTProgressView screenshot](http://grab.by/g0rw)
+![FWTClock screenshot](http://grab.by/h3N4)
 
 
-FWTProgressView shows the progress of a task over time. The progress image, by default, is animated from left to right. As with UIProgressView you can set the progress value with or without animation.
+FWTClock is a simple object that helps you showing dates on an analog clock. You can use FWTClock as a real clock or, for instance, you can use as a stamp to create images at runtime. 
 
 ##Requirements
 * XCode 4.4.1 or higher
@@ -11,70 +11,45 @@ FWTProgressView shows the progress of a task over time. The progress image, by d
 
 ##Features
 
+FWTClock, when ticking, has its own queue and doesn't lock the main loop. You can choose between different oscillator mode: *mechanical, quartz and quartz with a small backward jump* as the Apple's one.
+FWTClock, the controller, exposes an FWTClockView, the view. The controller is in charge to calculate the right rotation tranforms for each single hand and to apply that with or without animation.
+The view is just a basic container for all the views needed for the UI: the background, the hands, … 
+The view has two more properties to help you configure your clock instance:
+
+* **edgeInsets** use this property to resize and reposition the effective rectangle. 
+* **subviewsMask** an integer bit mask that determines which of the clock subviews should be enabled 
 
 This project is not yet ARC-ready.
 
 ##How to use it: initializing
+If you're happy with the default clock style you don't need to do much to init:
 
-FWTProgressView can be initialized in the following ways:
-
-* **defaultProgressView**
-* **initWithProgressImage:trackImage:borderImage:**
-
-**Parameters**
-
-*progressImage* a tile image used as pattern and eventually animated 
-
-*trackImage* a stretchable image
-
-*borderImage* a stretchable image
-
-**Discussion**
-
-FWTProgressView uses its default values if any of the passed params is nil.
+	self.clock = [[FWTClock alloc] init];
+    self.clock.oscillatorType = FWTClockOscillatorTypeMechanical; 
+	self.clock.clockView.frame = CGRectMake(.0f, .0f, 300.0f, 300.0f);
+	[self.view addSubview:self.clock.clockView];
 
 
 ##How to use it: configure
 
-**animationType** transition type that can be used (animation direction)
+**clockView** the clock view
 
-**animationDuration** amount of time it takes to move from 0 to progressImage width.
+**date** the date displayed by the clock
 
-**contentHorizontalInset** the value to use to adjust the width of the content view. To create an inset rectangle, specify a positive value. To create a larger, encompassing rectangle, specify a negative value.
+**calendar** the calendar to use for the clock
 
-**contentCornerRadius** specifies a radius used to draw the rounded corners of the content view. The default value is 0.0.
+**ticking** returns a Boolean value indicating whether the tick animation is running
 
-**borderEdgeInsets** the inset or outset margins for the edges of the border view. Use this property to resize and reposition the effective rectangle.
+**oscillatorType** the style of the animation for the second hand
 
 
 ##View hierarchy
-For a better understanding it can be useful to see the subviews/sublayers involved. Between braces the available public properties.
-
-- **progressView** {progress, animationType, animationDuration}
-	- **contentView** {contentHorizontalInset, contentCornerRadius} 
-		- **progressLayer**
-		- **trackView**
-	- **borderView** {borderEdgeInsets}
 
 ##For your interest
-The class method **defaultProgressView** creates for you the following images:
 
-* progressImage		![FWTProgressView progressImage](http://grab.by/g9Lq)
-* trackImage		![FWTProgressView trackImage](http://grab.by/g9Ly)
-* borderImage		![FWTProgressView borderImage](http://grab.by/g9LA) 
 
 ##Demo
-The sample project shows how to use and how to create a custom FWTProgressView.
-If you don't have time to read it this is what you need:
-
-    // i'm happy with the default
-    self.progressView = [FWTProgressView defaultProgressView];
-    [self.view addSubview:self.progressView];
-    
-	// set the frame width
-    CGRect frame = CGRectInset(self.view.bounds, 10.0f, .0f);
-    frame.size.height = self.progressView.frame.size.height;
-    self.progressView.frame = frame;
+The sample project.
 
 
 ##Licensing

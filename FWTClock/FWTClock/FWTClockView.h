@@ -28,4 +28,7 @@ typedef NS_ENUM(NSInteger, FWTClockSubview) {
 @property (nonatomic, retain) UIView *ringView;
 @property (nonatomic, assign) FWTClockSubview subviewsMask;     //  default is FWTClockSubviewAll
 
+//  chance to override
++ (UIView *)defaultViewForClockSubview:(FWTClockSubview)clockSubview;
+
 @end

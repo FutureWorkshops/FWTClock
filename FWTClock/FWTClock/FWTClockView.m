@@ -121,7 +121,7 @@
         if (needToInit)
         {
             self.initializedWithDefaults = YES;
-            [[self class] applyDefaultsToClockView:self forIndexes:indexSet];
+            [self _applyDefaultSubviewsForIndexes:indexSet];
         }
     }
 }
@@ -178,6 +178,24 @@
     }
 }
 
+- (void)_applyDefaultSubviewsForIndexes:(NSIndexSet *)indexes
+{
+    if ([indexes containsIndex:FWTClockSubviewBackground])
+        self.backgroundView = [[self class] defaultViewForClockSubview:FWTClockSubviewBackground];
+    
+    if ([indexes containsIndex:FWTClockSubviewHandHour])
+        self.handHourView   = [[self class] defaultViewForClockSubview:FWTClockSubviewHandHour];
+    
+    if ([indexes containsIndex:FWTClockSubviewHandMinute])
+        self.handMinuteView = [[self class] defaultViewForClockSubview:FWTClockSubviewHandMinute];
+    
+    if ([indexes containsIndex:FWTClockSubviewHandSecond])
+        self.handSecondView = [[self class] defaultViewForClockSubview:FWTClockSubviewHandSecond];
+    
+    if ([indexes containsIndex:FWTClockSubviewRing])
+        self.ringView       = [[self class] defaultViewForClockSubview:FWTClockSubviewRing];
+}
+
 #pragma mark - Accessors
 - (UIView *)backgroundView
 {
@@ -229,7 +247,7 @@
     [self _replaceViewForClockSubview:FWTClockSubviewRing withView:ringView];
 }
 
-#pragma mark - Class methods
+#pragma mark - Public class methods 
 + (UIView *)defaultViewForClockSubview:(FWTClockSubview)clockSubview
 {
     switch (clockSubview)
@@ -288,24 +306,6 @@
     }
     
     return nil;
-}
-
-+ (void)applyDefaultsToClockView:(FWTClockView *)clockView forIndexes:(NSIndexSet *)indexes
-{
-    if ([indexes containsIndex:FWTClockSubviewBackground])
-        clockView.backgroundView = [[self class] defaultViewForClockSubview:FWTClockSubviewBackground];
-    
-    if ([indexes containsIndex:FWTClockSubviewHandHour])
-        clockView.handHourView   = [[self class] defaultViewForClockSubview:FWTClockSubviewHandHour];
-    
-    if ([indexes containsIndex:FWTClockSubviewHandMinute])
-        clockView.handMinuteView = [[self class] defaultViewForClockSubview:FWTClockSubviewHandMinute];
-    
-    if ([indexes containsIndex:FWTClockSubviewHandSecond])
-        clockView.handSecondView = [[self class] defaultViewForClockSubview:FWTClockSubviewHandSecond];
-    
-    if ([indexes containsIndex:FWTClockSubviewRing])
-        clockView.ringView       = [[self class] defaultViewForClockSubview:FWTClockSubviewRing];
 }
 
 @end
