@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		A95BD6E816131C4500FF97E2 /* FWTClockRingView.m in Sources */ = {isa = PBXBuildFile; fileRef = A95BD6E716131C4500FF97E2 /* FWTClockRingView.m */; };
-		A95BD6EB16134AFD00FF97E2 /* FWTClockViewFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = A95BD6EA16134AFD00FF97E2 /* FWTClockViewFactory.m */; };
 		A9801FC31611FC5400641C39 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A9801FC21611FC5400641C39 /* Foundation.framework */; };
 		A9801FC81611FC5400641C39 /* FWTClock.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = A9801FC71611FC5400641C39 /* FWTClock.h */; };
 		A9801FCA1611FC5400641C39 /* FWTClock.m in Sources */ = {isa = PBXBuildFile; fileRef = A9801FC91611FC5400641C39 /* FWTClock.m */; };
@@ -37,8 +36,6 @@
 /* Begin PBXFileReference section */
 		A95BD6E616131C4500FF97E2 /* FWTClockRingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FWTClockRingView.h; sourceTree = "<group>"; };
 		A95BD6E716131C4500FF97E2 /* FWTClockRingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FWTClockRingView.m; sourceTree = "<group>"; };
-		A95BD6E916134AFD00FF97E2 /* FWTClockViewFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FWTClockViewFactory.h; sourceTree = "<group>"; };
-		A95BD6EA16134AFD00FF97E2 /* FWTClockViewFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FWTClockViewFactory.m; sourceTree = "<group>"; };
 		A9801FBF1611FC5400641C39 /* libFWTClock.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libFWTClock.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		A9801FC21611FC5400641C39 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		A9801FC61611FC5400641C39 /* FWTClock-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "FWTClock-Prefix.pch"; sourceTree = "<group>"; };
@@ -108,8 +105,6 @@
 				A9801FD01611FC8800641C39 /* FWTClockView.h */,
 				A9801FD11611FC8800641C39 /* FWTClockView.m */,
 				A9B17FBA161F016C000F99BB /* Clock subviews */,
-				A95BD6E916134AFD00FF97E2 /* FWTClockViewFactory.h */,
-				A95BD6EA16134AFD00FF97E2 /* FWTClockViewFactory.m */,
 				A9801FC51611FC5400641C39 /* Supporting Files */,
 			);
 			path = FWTClock;
@@ -194,7 +189,6 @@
 				A9A6996D16123F3800D0C515 /* FWTClockBackgroundView.m in Sources */,
 				A9A699821612FF9500D0C515 /* FWTClockHandView.m in Sources */,
 				A95BD6E816131C4500FF97E2 /* FWTClockRingView.m in Sources */,
-				A95BD6EB16134AFD00FF97E2 /* FWTClockViewFactory.m in Sources */,
 				A9B17FB8161EFDBB000F99BB /* FWTClockShapeView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

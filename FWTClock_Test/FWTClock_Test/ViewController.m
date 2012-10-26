@@ -35,12 +35,11 @@
     self.clock.clockView.center = self.view.center;
     [self.view addSubview:self.clock.clockView];
     
-    //
     UIButton *b = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     b.frame = CGRectMake(10, 10, 60, 40);
+    [b setTitle:@"I/O" forState:UIControlStateNormal];
     [b addTarget:self.clock action:@selector(toggle) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:b];
-    
 }
 
 - (FWTClock *)clock
@@ -48,9 +47,8 @@
     if (!self->_clock)
     {
         self->_clock = [[FWTClock alloc] init];
-        self->_clock.oscillatorType = FWTClockOscillatorTypeMechanical;
+        self->_clock.oscillatorType = FWTClockOscillatorTypeMechanical; // FWTClockOscillatorTypeQuartzSmallJump // FWTClockOscillatorTypeQuartz
 //        self->_clock.clockView.subviewsMask = FWTClockSubviewBackground|FWTClockSubviewHandHour|FWTClockSubviewHandMinute|FWTClockSubviewRing;
-//        self->_clock.clockView.style = FWTClockViewStyleNight;
     }
     
     return self->_clock;

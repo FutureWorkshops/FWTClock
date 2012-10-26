@@ -7,7 +7,9 @@
 //
 #import <QuartzCore/QuartzCore.h>
 #import "FWTClockView.h"
-#import "FWTClockViewFactory.h"
+#import "FWTClockBackgroundView.h"
+#import "FWTClockHandView.h"
+#import "FWTClockRingView.h"
 
 @interface FWTClockView ()
 @property (nonatomic, assign, getter = isInitializedWithDefaults) BOOL initializedWithDefaults;
@@ -39,7 +41,6 @@
     {
         //
         self.edgeInsets = UIEdgeInsetsZero;
-        self.style = FWTClockViewStyleDay;
         self.subviewsMask = FWTClockSubviewAll;
 
         //
@@ -120,7 +121,7 @@
         if (needToInit)
         {
             self.initializedWithDefaults = YES;
-            [FWTClockViewFactory applyDefaultsToClockView:self forIndexes:indexSet style:self.style];
+            [[self class] applyDefaultsToClockView:self forIndexes:indexSet];
         }
     }
 }
@@ -142,7 +143,6 @@
     NSInteger wi = CGRectGetWidth(availableRect)*relativeSize.width;
     NSInteger hi = CGRectGetHeight(availableRect)*relativeSize.height;
     CGSize toReturn = CGSizeMake(wi, hi);
-    NSLog(@"absoluteSize[%i]:%@", index, NSStringFromCGSize(toReturn));
     return toReturn;
 }
 
@@ -155,7 +155,7 @@
     UIView *currentView = [self.clockSubviews objectAtIndex:index];
     if ((NSNull *)currentView == [NSNull null])
     {
-        currentView = [FWTClockViewFactory defaultViewForClockSubview:clockSubview style:self.style];
+        currentView = [[self class] defaultViewForClockSubview:clockSubview];
         [self.clockSubviews replaceObjectAtIndex:index withObject:currentView];
     }
     
@@ -227,6 +227,85 @@
 - (void)setRingView:(UIView *)ringView
 {
     [self _replaceViewForClockSubview:FWTClockSubviewRing withView:ringView];
+}
+
+#pragma mark - Class methods
++ (UIView *)defaultViewForClockSubview:(FWTClockSubview)clockSubview
+{
+    switch (clockSubview)
+    {
+        case FWTClockSubviewBackground:
+        {
+            //
+            CGRect relativeFrame = CGRectMake(.0f, .0f, 1.0f, 1.0f);
+            FWTClockBackgroundView *toReturn = [[[FWTClockBackgroundView alloc] initWithFrame:relativeFrame] autorelease];
+            toReturn.shapeLayer.fillColor = [UIColor colorWithWhite:.875f alpha:1.0f].CGColor;
+            toReturn.shapeLayer.strokeColor = [UIColor blackColor].CGColor;
+            return toReturn;
+        }
+            
+        case FWTClockSubviewHandHour:
+        {
+            //
+            FWTClockHandView *toReturn = [[[FWTClockHandView alloc] init] autorelease];
+            toReturn.start = .2f;
+            toReturn.end = .55f;
+            toReturn.frame = CGRectMake(.0f, .0f, .051020f, 1.0f);
+            toReturn.shapeLayer.strokeColor = [UIColor colorWithWhite:.5f alpha:.5f].CGColor;
+            return toReturn;
+        }
+            
+        case FWTClockSubviewHandMinute:
+        {
+            FWTClockHandView *toReturn = [[[FWTClockHandView alloc] init] autorelease];
+            toReturn.start = .125f;
+            toReturn.end = .55f;
+            toReturn.frame = CGRectMake(.0f, .0f, .040816f, 1.0f);
+            toReturn.shapeLayer.strokeColor = [UIColor colorWithWhite:.7f alpha:.5f].CGColor;
+            return toReturn;
+        }
+            
+        case FWTClockSubviewHandSecond:
+        {
+            FWTClockHandView *toReturn = [[[FWTClockHandView alloc] init] autorelease];
+            toReturn.start = .05f;
+            toReturn.end = .575f;
+            toReturn.frame = CGRectMake(.0f, .0f, .025510f, 1.0f);
+            toReturn.shapeLayer.fillColor = [UIColor redColor].CGColor;
+            return toReturn;
+        }
+            
+        case FWTClockSubviewRing:
+        {
+            CGRect relativeFrame = CGRectMake(.0f, .0f, .06f, .06f);
+            FWTClockRingView *toReturn = [[[FWTClockRingView alloc] initWithFrame:relativeFrame] autorelease];
+            toReturn.shapeLayer.fillColor = [UIColor colorWithWhite:.9f alpha:1.0f].CGColor;
+            toReturn.shapeLayer.strokeColor = [UIColor blackColor].CGColor;
+            return toReturn;
+        }
+            
+        default: break;
+    }
+    
+    return nil;
+}
+
++ (void)applyDefaultsToClockView:(FWTClockView *)clockView forIndexes:(NSIndexSet *)indexes
+{
+    if ([indexes containsIndex:FWTClockSubviewBackground])
+        clockView.backgroundView = [[self class] defaultViewForClockSubview:FWTClockSubviewBackground];
+    
+    if ([indexes containsIndex:FWTClockSubviewHandHour])
+        clockView.handHourView   = [[self class] defaultViewForClockSubview:FWTClockSubviewHandHour];
+    
+    if ([indexes containsIndex:FWTClockSubviewHandMinute])
+        clockView.handMinuteView = [[self class] defaultViewForClockSubview:FWTClockSubviewHandMinute];
+    
+    if ([indexes containsIndex:FWTClockSubviewHandSecond])
+        clockView.handSecondView = [[self class] defaultViewForClockSubview:FWTClockSubviewHandSecond];
+    
+    if ([indexes containsIndex:FWTClockSubviewRing])
+        clockView.ringView       = [[self class] defaultViewForClockSubview:FWTClockSubviewRing];
 }
 
 @end

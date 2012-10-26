@@ -144,15 +144,14 @@ NSString *const keySecondHandAnimation = @"keySecondHandAnimation";
                     
                     if (self.oscillatorType == FWTClockOscillatorTypeQuartzSmallJump)
                     {
-                        CGFloat ratio = .0075f;
-                        myself.clockView.handSecondView.transform = CGAffineTransformMakeRotation(FWTDegrees2RadiansBlock(newSecondAngle + newSecondAngle*ratio));
+                        CGFloat extra = .75f;
+                        myself.clockView.handSecondView.transform = CGAffineTransformMakeRotation(FWTDegrees2RadiansBlock(newSecondAngle + extra));
                         [UIView animateWithDuration:.1f animations:^{
                             myself.clockView.handSecondView.transform = CGAffineTransformMakeRotation(FWTDegrees2RadiansBlock(newSecondAngle));
                         }];
                     } else
                         myself.clockView.handSecondView.transform = CGAffineTransformMakeRotation(FWTDegrees2RadiansBlock(newSecondAngle));
                 }
-
             };
             
             if ([self isTicking])
