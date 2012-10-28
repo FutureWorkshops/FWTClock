@@ -33,22 +33,18 @@
 
 #pragma mark - Overrides
 - (void)updateShapePath
-{
+{    
     [super updateShapePath];
-    
-    CGRect currentShapeLayerPathRect = CGRectInset(self.bounds, self.horizontalInset, .0f);
-    if (!self.shapeLayer.path || !CGRectEqualToRect(self.shapeLayerPathRect, currentShapeLayerPathRect))
-    {
-        self.shapeLayerPathRect = currentShapeLayerPathRect;
-        
-        CGRect pathRect = currentShapeLayerPathRect;
-        pathRect.origin.y += (pathRect.size.height * self.start);
-        pathRect.size.height *= (self.end-self.start);
-        
-        UIBezierPath *bp = [UIBezierPath bezierPathWithRect:pathRect];
-        self.shapeLayer.path = bp.CGPath;
-        self.shapeLayer.shadowPath = bp.CGPath;
-    }
+    self.shapeLayer.shadowPath = self.shapeLayer.path;
 }
+//
+//+ (CGPathRef)shapePathForClockShapeView:(FWTClockShapeView *)shapeView
+//{
+//    FWTClockHandView *castedView = (FWTClockHandView *)shapeView;
+//    CGRect currentShapeLayerPathRect = CGRectInset(castedView.bounds, castedView.horizontalInset, .0f);
+//    currentShapeLayerPathRect.origin.y += (currentShapeLayerPathRect.size.height * castedView.start);
+//    currentShapeLayerPathRect.size.height *= (castedView.end-castedView.start);
+//    return [UIBezierPath bezierPathWithRect:currentShapeLayerPathRect].CGPath;
+//}
 
 @end

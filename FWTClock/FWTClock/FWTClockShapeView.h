@@ -9,7 +9,12 @@
 #import <UIKit/UIKit.h>
 #import <QuartzCore/QuartzCore.h>
 
+@class FWTClockShapeView;
+typedef CGPathRef (^FWTClockShapeViewPathBlock)(FWTClockShapeView *);
+
 @interface FWTClockShapeView : UIView
+
+@property (nonatomic, copy) FWTClockShapeViewPathBlock pathBlock;
 
 - (CAShapeLayer *)shapeLayer;
 

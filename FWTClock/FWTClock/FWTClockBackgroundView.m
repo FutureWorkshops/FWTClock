@@ -86,13 +86,6 @@
     self.teethLayer.frame = self.bounds;
 }
 
-#pragma mark - Overrides
-- (void)updateShapePath
-{
-    CGRect availableRect = CGRectInset(self.bounds, 2, 2);
-    self.shapeLayer.path = [UIBezierPath bezierPathWithOvalInRect:availableRect].CGPath;
-}
-
 #pragma mark - Getters
 - (FWTClockTeethLayer *)teethLayer
 {
