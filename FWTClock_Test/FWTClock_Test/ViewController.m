@@ -10,7 +10,7 @@
 #import "FWTClock.h"
 #import <QuartzCore/QuartzCore.h>
 
-@interface ViewController ()
+@interface ViewController () <FWTClockViewAppearance>
 
 @property (nonatomic, retain) FWTClock *clock;
 
@@ -48,10 +48,26 @@
     {
         self->_clock = [[FWTClock alloc] init];
         self->_clock.oscillatorType = FWTClockOscillatorTypeMechanical; // FWTClockOscillatorTypeQuartzSmallJump // FWTClockOscillatorTypeQuartz
-//        self->_clock.clockView.subviewsMask = FWTClockSubviewBackground|FWTClockSubviewHandHour|FWTClockSubviewHandMinute|FWTClockSubviewRing;
+//        self->_clock.clockView.subviewsMask = FWTClockSubviewHandHour|FWTClockSubviewHandMinute|FWTClockSubviewHandSecond;
+//        self->_clock.clockView.appearanceClass = [self class];
     }
     
     return self->_clock;
+}
+
+#pragma mark - FWTClockViewAppearance
++ (UIView *)clockView:(FWTClockView *)clockView viewForClockSubview:(FWTClockSubview)clockSubview
+{
+    if (clockSubview == FWTClockSubviewBackground)
+    {
+        UIView *v = [[[UIView alloc] initWithFrame:CGRectMake(.0f, .0f, .925f, 1.0f)] autorelease];
+        v.backgroundColor = [UIColor colorWithWhite:.9f alpha:.5f];
+        v.layer.borderWidth = 1.0f;
+        
+        return v;
+    }
+    else
+        return [[FWTClockView defaultAppearanceClass] clockView:clockView viewForClockSubview:clockSubview];
 }
 
 @end

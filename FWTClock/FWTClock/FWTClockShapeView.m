@@ -25,9 +25,7 @@
 {
     if ((self = [super initWithFrame:frame]))
     {
-        self.pathBlock = ^(FWTClockShapeView *shapeView){
-            return [UIBezierPath bezierPathWithRect:shapeView.bounds].CGPath;
-        };
+        self.pathBlock = NULL;
     }
     return self;
 }
@@ -69,7 +67,8 @@
 
 - (void)updateShapePath
 {
-    self.shapeLayer.path = self.pathBlock(self);
+    if (self.pathBlock)
+        self.shapeLayer.path = self.pathBlock(self);
 }
 
 @end

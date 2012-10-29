@@ -18,6 +18,11 @@ typedef NS_ENUM(NSInteger, FWTClockSubview) {
     FWTClockSubviewAll          = FWTClockSubviewBackground|FWTClockSubviewHandHour|FWTClockSubviewHandMinute|FWTClockSubviewHandSecond|FWTClockSubviewRing,
 };
 
+@class FWTClockView;
+@protocol FWTClockViewAppearance <NSObject>
++ (UIView *)clockView:(FWTClockView *)clockView viewForClockSubview:(FWTClockSubview)clockSubview;
+@end
+
 @interface FWTClockView : UIView
 
 @property (nonatomic, assign) UIEdgeInsets edgeInsets;
@@ -27,8 +32,8 @@ typedef NS_ENUM(NSInteger, FWTClockSubview) {
 @property (nonatomic, retain) UIView *handSecondView;
 @property (nonatomic, retain) UIView *ringView;
 @property (nonatomic, assign) FWTClockSubview subviewsMask;     //  default is FWTClockSubviewAll
+@property (nonatomic, retain) Class appearanceClass;
 
-//  chance to override
-+ (UIView *)defaultViewForClockSubview:(FWTClockSubview)clockSubview;
++ (Class)defaultAppearanceClass;
 
 @end

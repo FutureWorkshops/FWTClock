@@ -37,14 +37,5 @@
     [super updateShapePath];
     self.shapeLayer.shadowPath = self.shapeLayer.path;
 }
-//
-//+ (CGPathRef)shapePathForClockShapeView:(FWTClockShapeView *)shapeView
-//{
-//    FWTClockHandView *castedView = (FWTClockHandView *)shapeView;
-//    CGRect currentShapeLayerPathRect = CGRectInset(castedView.bounds, castedView.horizontalInset, .0f);
-//    currentShapeLayerPathRect.origin.y += (currentShapeLayerPathRect.size.height * castedView.start);
-//    currentShapeLayerPathRect.size.height *= (castedView.end-castedView.start);
-//    return [UIBezierPath bezierPathWithRect:currentShapeLayerPathRect].CGPath;
-//}
 
 @end
