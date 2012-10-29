@@ -29,12 +29,11 @@
 {
     [super loadView];
     
-    CGRect frame = CGRectMake(.0f, .0f, 300.0f, 300.0f);
-    self.clock.clockView.frame = frame;
-    self.clock.clockView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin|UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleBottomMargin|UIViewAutoresizingFlexibleRightMargin;
+    //
     self.clock.clockView.center = self.view.center;
     [self.view addSubview:self.clock.clockView];
     
+    //
     UIButton *b = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     b.frame = CGRectMake(10, 10, 60, 40);
     [b setTitle:@"I/O" forState:UIControlStateNormal];
@@ -48,7 +47,13 @@
     {
         self->_clock = [[FWTClock alloc] init];
         self->_clock.oscillatorType = FWTClockOscillatorTypeMechanical; // FWTClockOscillatorTypeQuartzSmallJump // FWTClockOscillatorTypeQuartz
+        self->_clock.clockView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin|UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleBottomMargin|UIViewAutoresizingFlexibleRightMargin;
+        self->_clock.clockView.frame = CGRectMake(.0f, .0f, 300.0f, 300.0f);
+        
+//        //  change the bitmask
 //        self->_clock.clockView.subviewsMask = FWTClockSubviewHandHour|FWTClockSubviewHandMinute|FWTClockSubviewHandSecond;
+        
+//        //  override appearance
 //        self->_clock.clockView.appearanceClass = [self class];
     }
     
@@ -60,7 +65,7 @@
 {
     if (clockSubview == FWTClockSubviewBackground)
     {
-        UIView *v = [[[UIView alloc] initWithFrame:CGRectMake(.0f, .0f, .925f, 1.0f)] autorelease];
+        UIView *v = [[[UIView alloc] initWithFrame:CGRectMake(.0f, .0f, 150, 130)] autorelease];
         v.backgroundColor = [UIColor colorWithWhite:.9f alpha:.5f];
         v.layer.borderWidth = 1.0f;
         
