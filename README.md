@@ -3,7 +3,7 @@
 ![FWTClock screenshot](http://grab.by/h3N4)
 
 
-FWTClock is a simple object that helps you showing dates on an analog clock. You can use FWTClock as a real clock or, for instance, you can use as a stamp to create images at runtime. 
+FWTClock is a simple object that helps you showing dates on an analog clock. You can use FWTClock as a real clock or, for instance, you can use as a stamp to create dynamic images at runtime. 
 
 ##Requirements
 * XCode 4.4.1 or higher
@@ -11,8 +11,9 @@ FWTClock is a simple object that helps you showing dates on an analog clock. You
 
 ##Features
 
-FWTClock, when ticking, has its own queue and doesn't lock the main loop. You can choose between different oscillator mode (animations): *mechanical, quartz and quartz with a small backward jump*.
-FWTClock, the controller, exposes an FWTClockView, the view. The controller is in charge to calculate the right rotation tranforms for each single hand and to apply those with or without animation.
+FWTClock ticks on its own queue and will not lock the main loop. You can choose between different oscillator mode (animations): *mechanical, quartz and quartz with a small backward jump*.
+FWTClock is the controller and it exposes an FWTClockView, the view. The controller has the responsibility to calculate the right rotation tranforms for each single hand and to apply those with or without animation.
+FWTClockView can be configured by accessing its public properties or by implementing the protocol.
 
 This project is not yet ARC-ready.
 
@@ -27,19 +28,19 @@ You don't have to do much if you're happy with the default clock style:
 
 ##How to use FWTClock: configure
 
-**clockView** the clock view 
+**clockView** the *readonly* clock view 
 
 **date** the date displayed by the clock
 
-**calendar** the calendar to use for the clock
+**calendar** the calendar used by the clock
 
-**ticking** returns a Boolean value indicating whether the tick animation is running
+**isTicking** returns a Boolean value indicating whether the tick animation is running
 
 **oscillatorType** the style of the animation for the second hand
 
 ##How to use FWTClockView: configure
 
-The FWTClockView is just a basic container for all the views needed for the UI: the background, the hands, the ring. The clock view, during the first layout, reads the *subviewsMask* and, if needed, creates the default subviews otherwise its simply sets the bounds and the center point. You can access each of the default subviews and adjust their appearance (see below for further details) or you can just easily replace with your own custom UIView subclass. You specify the frame of each single subview using a relative CGRect (in future I will add support also for regular CGRect).
+The FWTClockView is just a basic container for all the views needed for the UI: the background, the hands, the ring. The clock view, during the first layout, reads the *subviewsMask* and, if needed, creates the default subviews otherwise its simply sets the bounds and the center point to the subviews. You can access each of the default subviews and adjust their appearance (see below for further details) or you can easily replace with your own custom UIView subclass. It's not mandatory but you can specify the frame for each single subview using a rectangle in the unit coordinate space.
 
 **backgroundView** the background of the clock
 
@@ -51,27 +52,34 @@ The FWTClockView is just a basic container for all the views needed for the UI: 
 
 **ringView** the frontmost ring of the clock  
     
-The view has two more properties to help you configure your clock appearance:
+The view has few more properties to help you configure the clock appearance:
 
-**edgeInsets** use this property to resize and reposition the effective rectangle. 
+**edgeInsets** use this property to resize and reposition the effective rectangle 
 
 **subviewsMask** an integer bit mask that determines which of the clock subviews should be enabled 
 
+**appearanceClass** the class to use for initialize the clock subviews
+
 ##FWTClockView subviews: default
 
-**FWTClockShapeView** the backing layer of this superclass is a *CAShapeLayer*. The view call the *updateShapePath* only when it's needed and this is the right time to create the path and to set . 
+**FWTClockShapeView** the backing layer of this superclass is a *CAShapeLayer*. The view call the *updateShapePath* only when it's needed and relies on the *pathBlock* property to set the path property of the layer. Use the *edgeInsets* property to resize and reposition the effective rectangle.
 
-**FWTClockBackgroundView**
+**FWTClockBackgroundView** *[todo]*
 
-**FWTClockHandView**
+**FWTClockHandView** the height of each hand matches the clockView height (the anchorPoint is the default one). There are two additional properties: *start* and *end*, the start and the end of the path when drawn in the layer’s coordinate space.
 
-**FWTClockRingView**
+##FWTClockViewAppearance
+The FWTClockViewAppearance protocol gives you an additional way to customize your FWTClockView. There's only method to implement:
+
+\+ (UIView *)clockView:(FWTClockView *)clockView viewForClockSubview:(FWTClockSubview)clockSubview; 
+
+There's no possibility to force the clock view to call this method or the refresh the appearance after it's added to the superview. 
 
 ##For your interest
 
 
 ##Demo
-The sample project.
+See the sample project.
 
 
 ##Licensing
