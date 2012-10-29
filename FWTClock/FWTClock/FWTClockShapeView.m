@@ -48,7 +48,7 @@
 - (BOOL)_shapeNeedsRefreshForKey:(NSString *)key newRect:(CGRect)rect
 {
     CGRect previous = [[self valueForKey:key] CGRectValue];
-    return !CGSizeEqualToSize(previous.size, rect.size);
+    return !CGRectEqualToRect(previous, rect);
 }
 
 - (void)_updateShapeForFrame:(CGRect)rect needsRefresh:(BOOL)needsRefresh

@@ -44,7 +44,6 @@
         self.edgeInsets = UIEdgeInsetsZero;
         self.subviewsMask = FWTClockSubviewAll;
         self.appearanceClass = [FWTClockViewDefaultAppearance class];
-        self.subviewsNeedLayout = YES;
         
         //
         NSInteger capacity = log2(FWTClockSubviewCount);
@@ -56,8 +55,6 @@
             [self.clockSubviewsSize addObject:null];
             [self.clockSubviews addObject:null];
         }
-        
-        self.layer.borderWidth = 1.0f;
     }
     return self;
 }
@@ -65,14 +62,14 @@
 - (void)setFrame:(CGRect)frame
 {
     CGRect previous = [[self valueForKey:@"frame"] CGRectValue];
-    self.subviewsNeedLayout = !CGSizeEqualToSize(previous.size, frame.size);
+    self.subviewsNeedLayout = !CGRectEqualToRect(previous, frame);
     [super setFrame:frame];
 }
 
 - (void)setBounds:(CGRect)bounds
 {
     CGRect previous = [[self valueForKey:@"bounds"] CGRectValue];
-    self.subviewsNeedLayout = !CGSizeEqualToSize(previous.size, bounds.size);
+    self.subviewsNeedLayout = !CGRectEqualToRect(previous, bounds);
     [super setBounds:bounds];
 }
 
@@ -84,9 +81,8 @@
     [self _initWithDefaultsIfNeeded];
     
     //
-//    if (self.subviewsNeedLayout)
-//    {
-    NSLog(@"layoutSubviews");
+    if (self.subviewsNeedLayout)
+    {
         self.subviewsNeedLayout = NO;
         
         CGRect availableRect = UIEdgeInsetsInsetRect(self.bounds, self.edgeInsets);
@@ -105,7 +101,7 @@
                 subview.bounds = CGRectMake(.0f, .0f, size.width, size.height);
             }
         }];
-//    }
+    }
 }
 
 #pragma mark - Private
@@ -113,21 +109,18 @@
 {
     if (![self isInitializedWithDefaults])
     {
-//        __block BOOL needToInit = NO;
-        __block NSMutableIndexSet *indexSet = nil;//[NSMutableIndexSet indexSet];
+        __block NSMutableIndexSet *indexSet = nil;
         [self.clockSubviews enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
             NSInteger index = pow(2, idx);
             if (obj == [NSNull null] && (self.subviewsMask & index))
             {
                 if (!indexSet) indexSet = [[NSMutableIndexSet indexSet] retain];
                 [indexSet addIndex:index];
-//                needToInit = YES;
             }
         }];
         
         if (indexSet)
         {
-//            NSLog(@"indexSet, rc:%i", [indexSet retainCount]);
             self.initializedWithDefaults = YES;
             [self _loadDefaultSubviewsForIndexes:indexSet];
             [indexSet release];
