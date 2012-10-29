@@ -11,6 +11,5 @@
 @interface FWTClockHandView : FWTClockShapeView
 
 @property (nonatomic, assign) CGFloat start, end;
-@property (nonatomic, assign) CGFloat horizontalInset;
 
 @end

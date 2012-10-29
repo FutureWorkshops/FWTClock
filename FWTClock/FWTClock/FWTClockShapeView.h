@@ -15,6 +15,7 @@ typedef CGPathRef (^FWTClockShapeViewPathBlock)(FWTClockShapeView *);
 @interface FWTClockShapeView : UIView
 
 @property (nonatomic, copy) FWTClockShapeViewPathBlock pathBlock;
+@property (nonatomic, assign) UIEdgeInsets edgeInsets;
 
 - (CAShapeLayer *)shapeLayer;
 

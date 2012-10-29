@@ -17,17 +17,17 @@
 {
     //
     FWTClockShapeViewPathBlock ellipsePathBlock = ^(FWTClockShapeView *shapeView){
-        CGRect availableRect = CGRectInset(shapeView.bounds, 2, 2);
+        CGRect availableRect = UIEdgeInsetsInsetRect(shapeView.bounds, shapeView.edgeInsets);
         return [UIBezierPath bezierPathWithOvalInRect:availableRect].CGPath;
     };
     
     //
     FWTClockShapeViewPathBlock handPathBlock = ^(FWTClockShapeView *shapeView){
         FWTClockHandView *castedView = (FWTClockHandView *)shapeView;
-        CGRect currentShapeLayerPathRect = CGRectInset(castedView.bounds, castedView.horizontalInset, .0f);
-        currentShapeLayerPathRect.origin.y += (currentShapeLayerPathRect.size.height * castedView.start);
-        currentShapeLayerPathRect.size.height *= (castedView.end-castedView.start);
-        return [UIBezierPath bezierPathWithRect:currentShapeLayerPathRect].CGPath;
+        CGRect availableRect = UIEdgeInsetsInsetRect(castedView.bounds, shapeView.edgeInsets);
+        availableRect.origin.y += (availableRect.size.height * castedView.start);
+        availableRect.size.height *= (castedView.end-castedView.start);
+        return [UIBezierPath bezierPathWithRect:availableRect].CGPath;
     };
     
     switch (clockSubview)

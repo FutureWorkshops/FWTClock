@@ -8,12 +8,6 @@
 
 #import "FWTClockHandView.h"
 
-@interface FWTClockHandView ()
-
-@property (nonatomic, assign) CGRect shapeLayerPathRect;
-
-@end
-
 @implementation FWTClockHandView
 
 - (id)initWithFrame:(CGRect)frame
@@ -24,10 +18,8 @@
         self.shapeLayer.shadowOpacity = 1.0f;//.25f;
         self.shapeLayer.shadowOffset = CGSizeMake(.0f, .0f);
         self.shapeLayer.shadowRadius = 2.0f;
-        
-        //
-        self.horizontalInset = 2.0f;
     }
+    
     return self;
 }
 

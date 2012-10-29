@@ -26,6 +26,7 @@
     if ((self = [super initWithFrame:frame]))
     {
         self.pathBlock = NULL;
+        self.edgeInsets = UIEdgeInsetsMake(2.0f, 2.0f, 2.0f, 2.0f);
     }
     return self;
 }
