@@ -69,6 +69,20 @@
 {
     if (self.pathBlock)
         self.shapeLayer.path = self.pathBlock(self);
+    else
+        self.shapeLayer.path = nil;
+}
+
+- (void)setPathBlock:(FWTClockShapeViewPathBlock)pathBlock
+{
+    if (self->_pathBlock != pathBlock)
+    {
+        [self->_pathBlock release];
+        self->_pathBlock = nil;
+        
+        self->_pathBlock = [pathBlock copy];
+        [self updateShapePath];
+    }
 }
 
 @end

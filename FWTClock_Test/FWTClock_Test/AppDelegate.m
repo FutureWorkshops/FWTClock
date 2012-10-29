@@ -22,9 +22,27 @@
     self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
     // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor scrollViewTexturedBackgroundColor];
-    self.window.rootViewController = [[[ViewController alloc] init] autorelease];
+    UINavigationController *nc = [[[UINavigationController alloc] initWithRootViewController:[[[UIViewController alloc] init] autorelease]] autorelease];
+    self.window.rootViewController = nc;
+//    self.window.rootViewController = [[[ViewController alloc] init] autorelease];
+
+    UIButton *b = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    b.frame = CGRectMake(10, 100, 60, 40);
+    [b setTitle:@"I/O" forState:UIControlStateNormal];
+    [b addTarget:self action:@selector(doSomething) forControlEvents:UIControlEventTouchUpInside];
+    [self.window.rootViewController.view addSubview:b];
+    
+    
     [self.window makeKeyAndVisible];
     return YES;
+    
+}
+
+- (void)doSomething
+{
+    UIViewController *vc = [[[ViewController alloc] init] autorelease];
+    [(UINavigationController *)self.window.rootViewController pushViewController:vc animated:YES];
+    
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application
