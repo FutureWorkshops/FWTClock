@@ -51,7 +51,7 @@
         self->_clock.clockView.frame = CGRectMake(.0f, .0f, 300.0f, 300.0f);
         
 //        //  change the bitmask
-//        self->_clock.clockView.subviewsMask = FWTClockSubviewHandHour|FWTClockSubviewHandMinute|FWTClockSubviewHandSecond;
+//        self->_clock.clockView.subviewsMask = FWTClockSubviewHandHour|FWTClockSubviewHandMinute|FWTClockSubviewHandSecond|FWTClockSubviewRing;
         
 //        //  override appearance
 //        self->_clock.clockView.appearanceClass = [self class];

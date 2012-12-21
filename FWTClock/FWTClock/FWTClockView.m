@@ -46,7 +46,7 @@
         self.appearanceClass = [FWTClockViewDefaultAppearance class];
         
         //
-        NSInteger capacity = log2(FWTClockSubviewCount);
+        NSInteger capacity = FWTClockSubviewCount;//log2(FWTClockSubviewCount);
         self.clockSubviewsSize = [NSMutableArray arrayWithCapacity:capacity];
         self.clockSubviews = [NSMutableArray arrayWithCapacity:capacity];
         NSNull *null = [NSNull null];
@@ -109,6 +109,8 @@
 {
     if (![self isInitializedWithDefaults])
     {
+        self.initializedWithDefaults = YES;
+        
         __block NSMutableIndexSet *indexSet = nil;
         [self.clockSubviews enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
             NSInteger index = pow(2, idx);
@@ -121,7 +123,6 @@
         
         if (indexSet)
         {
-            self.initializedWithDefaults = YES;
             [self _loadDefaultSubviewsForIndexes:indexSet];
             [indexSet release];
         }
@@ -193,16 +194,10 @@
 
 - (void)_loadDefaultSubviewsForIndexes:(NSIndexSet *)indexes
 {
-    NSInteger capacity = log2(FWTClockSubviewCount);
-    for (unsigned i=0; i<capacity; i++)
-    {
-        NSInteger clockSubview = pow(2, i);
-        if ([indexes containsIndex:clockSubview])
-        {
-            UIView *defaultView = [[self appearanceClass] clockView:self viewForClockSubview:clockSubview];
-            [self _replaceViewForClockSubview:clockSubview withView:defaultView];
-        }
-    }
+    [indexes enumerateIndexesUsingBlock:^(NSUInteger clockSubview, BOOL *stop) {
+        UIView *defaultView = [[self appearanceClass] clockView:self viewForClockSubview:clockSubview];
+        [self _replaceViewForClockSubview:clockSubview withView:defaultView];
+    }];
 }
 
 #pragma mark - Accessors

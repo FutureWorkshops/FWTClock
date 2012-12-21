@@ -14,9 +14,10 @@ typedef NS_ENUM(NSInteger, FWTClockSubview) {
     FWTClockSubviewHandMinute   = 1UL << 2,
     FWTClockSubviewHandSecond   = 1UL << 3,
     FWTClockSubviewRing         = 1UL << 4,
-    FWTClockSubviewCount        = 1UL << 5,
     FWTClockSubviewAll          = FWTClockSubviewBackground|FWTClockSubviewHandHour|FWTClockSubviewHandMinute|FWTClockSubviewHandSecond|FWTClockSubviewRing,
 };
+
+#define FWTClockSubviewCount 5
 
 @class FWTClockView;
 @protocol FWTClockViewAppearance <NSObject>

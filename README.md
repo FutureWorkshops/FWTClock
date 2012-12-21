@@ -3,7 +3,7 @@
 ![FWTClock screenshot](http://grab.by/h3N4)
 
 
-FWTClock is a simple object that helps you showing dates on an analog clock. You can use FWTClock as a real clock or, for instance, you can use as a stamp to create dynamic images at runtime. 
+FWTClock is a flexible and easy to customize analog clock. You can use FWTClock as a real clock or, for instance, you can use as a stamp to create dynamic images at runtime. 
 
 ##Requirements
 * XCode 4.4.1 or higher
@@ -12,7 +12,7 @@ FWTClock is a simple object that helps you showing dates on an analog clock. You
 ##Features
 
 FWTClock ticks on its own queue and will not lock the main loop. You can choose between different oscillator mode (animations): *mechanical, quartz and quartz with a small backward jump*.
-FWTClock is the controller and it exposes an FWTClockView, the view. The controller has the responsibility to calculate the right rotation tranforms for each single hand and to apply those with or without animation.
+FWTClock is the controller object and it exposes an FWTClockView, the view. The controller has the responsibility to calculate the right rotation tranforms for each single hand and to apply those with or without animation.
 FWTClockView can be configured by accessing its public properties or by implementing the protocol.
 
 This project is not yet ARC-ready.
@@ -40,7 +40,7 @@ You don't have to do much if you're happy with the default clock style:
 
 ##How to use FWTClockView: configure
 
-The FWTClockView is just a basic container for all the views needed for the UI: the background, the hands, the ring. The clock view, during the first layout, reads the *subviewsMask* and, if needed, creates the default subviews otherwise its simply sets the bounds and the center point to the subviews. You can access each of the default subviews and adjust their appearance (see below for further details) or you can easily replace with your own custom UIView subclass. It's not mandatory but you can specify the frame for each single subview using a rectangle in the unit coordinate space.
+The FWTClockView is just a basic container for all the views needed for the UI: the background, the hands, the ring. The clock view, during the first layout, reads the *subviewsMask* and, if needed, creates the default subviews otherwise its simply sets the bounds and the center point to the subviews. You can access each of the default subviews and adjust their appearance (see below for further details) or you can easily replace with your own custom UIView subclass. It's not mandatory but you can also specify the frame for each single subview using a rectangle in the unit coordinate space.
 
 **backgroundView** the background of the clock
 
