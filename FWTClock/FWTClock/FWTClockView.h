@@ -8,21 +8,21 @@
 
 #import <UIKit/UIKit.h>
 
-typedef enum _FWTClockSubview
-{
-    FWTClockSubviewBackground,
-    FWTClockSubviewHandHour,
-    FWTClockSubviewHandMinute,
-    FWTClockSubviewHandSecond,
-    FWTClockSubviewRing,
-    FWTClockSubviewCount,
-} FWTClockSubview;
+typedef NS_ENUM(NSInteger, FWTClockSubview) {
+    FWTClockSubviewBackground   = 1UL << 0,
+    FWTClockSubviewHandHour     = 1UL << 1,
+    FWTClockSubviewHandMinute   = 1UL << 2,
+    FWTClockSubviewHandSecond   = 1UL << 3,
+    FWTClockSubviewRing         = 1UL << 4,
+    FWTClockSubviewAll          = FWTClockSubviewBackground|FWTClockSubviewHandHour|FWTClockSubviewHandMinute|FWTClockSubviewHandSecond|FWTClockSubviewRing,
+};
 
-typedef enum _FWTClockViewStyle
-{
-    FWTClockViewStyleDay,
-    FWTClockViewStyleNight,
-} FWTClockViewStyle;
+#define FWTClockSubviewCount 5
+
+@class FWTClockView;
+@protocol FWTClockViewAppearance <NSObject>
++ (UIView *)clockView:(FWTClockView *)clockView viewForClockSubview:(FWTClockSubview)clockSubview;
+@end
 
 @interface FWTClockView : UIView
 
@@ -32,6 +32,9 @@ typedef enum _FWTClockViewStyle
 @property (nonatomic, retain) UIView *handMinuteView;
 @property (nonatomic, retain) UIView *handSecondView;
 @property (nonatomic, retain) UIView *ringView;
-@property (nonatomic, assign) FWTClockViewStyle style;
+@property (nonatomic, assign) FWTClockSubview subviewsMask;     //  default is FWTClockSubviewAll
+@property (nonatomic, retain) Class appearanceClass;
+
++ (Class)defaultAppearanceClass;
 
 @end

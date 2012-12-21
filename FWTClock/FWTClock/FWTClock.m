@@ -9,19 +9,21 @@
 #import "FWTClock.h"
 #import <QuartzCore/QuartzCore.h>
 
-struct FWClockDateComponents
-{
-    int hours;
-    int minutes;
-    int seconds;
+CGFloat(^FWTDegrees2RadiansBlock)(CGFloat) = ^(CGFloat degrees){
+    CGFloat toReturn = degrees * M_PI / 180;
+    return toReturn;
 };
 
-float Degrees2Radians(float degrees) { return degrees * M_PI / 180; }
+CGFloat(^FWTNormalizeAngleBlock)(CGFloat) = ^(CGFloat angle){
+    return angle > 360 ? angle - 360 : angle;
+};
 
 NSString *const keySecondHandAnimation = @"keySecondHandAnimation";
 
 @interface FWTClock ()
 @property (nonatomic, readwrite, retain) FWTClockView *clockView;
+@property (nonatomic, retain) NSOperationQueue *queue;
+@property (nonatomic, readwrite, getter = isTicking) BOOL ticking;
 @end
 
 @implementation FWTClock
@@ -31,6 +33,8 @@ NSString *const keySecondHandAnimation = @"keySecondHandAnimation";
 
 - (void)dealloc
 {
+    [self.queue cancelAllOperations];
+    self.queue = nil;
     self.calendar = nil;
     self.date = nil;
     self.clockView = nil;
@@ -55,28 +59,33 @@ NSString *const keySecondHandAnimation = @"keySecondHandAnimation";
 }
 
 #pragma mark - Private
-- (struct FWClockDateComponents)_dateComponentsFromDate:(NSDate *)date
+- (void)_tick
+{
+    __block typeof(self) myself = self;
+    NSOperation *op = [NSBlockOperation blockOperationWithBlock:^{
+        BOOL animated = myself.oscillatorType == FWTClockOscillatorTypeMechanical ? YES : NO;
+        [myself setDate:[NSDate date] animated:animated];
+        [NSThread sleepForTimeInterval:1];
+    }];
+    op.completionBlock = ^{[self _tick];};
+    [self.queue addOperation:op];
+}
+
+#pragma mark - Public
+- (struct FWTClockDateComponents)dateComponentsFromDate:(NSDate *)date
 {
     NSUInteger unitFlags = NSHourCalendarUnit|NSMinuteCalendarUnit|NSSecondCalendarUnit;
     NSDateComponents *dateComponents = [self.calendar components:unitFlags fromDate:date];
     
-    struct FWClockDateComponents toReturn;
-    
-    toReturn.hours = [dateComponents hour];
-    toReturn.minutes = [dateComponents minute];
-    toReturn.seconds = [dateComponents second];
+    struct FWTClockDateComponents toReturn = {
+        .hours   = [dateComponents hour],
+        .minutes = [dateComponents minute],
+        .seconds = [dateComponents second],
+    };
     
     return toReturn;
 }
 
-- (void)_tick
-{
-    NSDate *date = [NSDate date];
-    [self setDate:date animated:YES];
-    [self performSelector:@selector(_tick) withObject:nil afterDelay:1.0f];
-}
-
-#pragma mark - Public
 - (void)setDate:(NSDate *)date
 {
     [self setDate:date animated:NO];
@@ -86,73 +95,129 @@ NSString *const keySecondHandAnimation = @"keySecondHandAnimation";
 {
     if (self->_date != date)
     {
+        [self->_date release];
+        self->_date = nil;
+        
         self->_date = [date retain];
         
         if (self->_date)
         {
-            struct FWClockDateComponents dateComponents = [self _dateComponentsFromDate:self->_date];
-            
-            CGFloat newHourAngle = 0.5f * ((dateComponents.hours * 60.0f) + dateComponents.minutes);
-            newHourAngle = newHourAngle > 360 ? newHourAngle - 360 : newHourAngle;
-            
-            CGFloat newMinuteAngle = 6.0f * dateComponents.minutes;
-            newMinuteAngle = newMinuteAngle > 360 ? newMinuteAngle - 360 : newMinuteAngle;
-            
-            CGFloat newSecondAngle = 6.0f * dateComponents.seconds;
-            newSecondAngle = newSecondAngle > 360 ? newSecondAngle - 360 : newSecondAngle;
-            
-            void(^rotateHourAndMinuteHands)() = ^(void) {
-                self.clockView.handHourView.transform = CGAffineTransformMakeRotation(Degrees2Radians(newHourAngle));
-                self.clockView.handMinuteView.transform = CGAffineTransformMakeRotation(Degrees2Radians(newMinuteAngle));
+            __block typeof(self) myself = self;
+            void(^FWTUpdateHandsBlock)() = ^() {
+                struct FWTClockDateComponents dateComponents = [self dateComponentsFromDate:self->_date];
+                CGFloat newHourAngle = FWTNormalizeAngleBlock(0.5f * ((dateComponents.hours * 60.0f) + dateComponents.minutes));
+                CGFloat newMinuteAngle = FWTNormalizeAngleBlock(6.0f * dateComponents.minutes);
+                CGFloat newSecondAngle = FWTNormalizeAngleBlock(6.0f * dateComponents.seconds);
+                
+                void(^rotateHourAndMinuteHands)() = ^(void) {
+                    myself.clockView.handHourView.transform = CGAffineTransformMakeRotation(FWTDegrees2RadiansBlock(newHourAngle));
+                    myself.clockView.handMinuteView.transform = CGAffineTransformMakeRotation(FWTDegrees2RadiansBlock(newMinuteAngle));
+                    
+                    if (myself.oscillatorType == FWTClockOscillatorTypeQuartz)
+                        myself.clockView.handSecondView.transform = CGAffineTransformMakeRotation(FWTDegrees2RadiansBlock(newSecondAngle+newSecondAngle));
+                };
+                
+                if (animated)
+                {
+                    [UIView animateWithDuration:.2f animations:rotateHourAndMinuteHands];
+                    
+                    if (myself.clockView.subviewsMask & FWTClockSubviewHandSecond)
+                    {
+                        if (![myself.clockView.handSecondView.layer animationForKey:keySecondHandAnimation] && myself.oscillatorType == FWTClockOscillatorTypeMechanical)
+                        {
+                            CGFloat radians = FWTDegrees2RadiansBlock(newSecondAngle);
+                            myself.clockView.handSecondView.transform = CGAffineTransformMakeRotation(radians);
+                            
+                            CGFloat circleAngle = 2*M_PI+FWTDegrees2RadiansBlock(newSecondAngle);
+                            circleAngle = radians > M_PI ? circleAngle - 2*M_PI : circleAngle;
+                            
+                            CABasicAnimation* spinAnimation = [CABasicAnimation animationWithKeyPath:@"transform.rotation"];
+                            spinAnimation.toValue = [NSNumber numberWithFloat:circleAngle];
+                            spinAnimation.duration = 60.0f;
+                            spinAnimation.repeatCount = INFINITY;
+                            [myself.clockView.handSecondView.layer addAnimation:spinAnimation forKey:keySecondHandAnimation];
+                        }
+                    }
+                }
+                else
+                {
+                    rotateHourAndMinuteHands();
+                    
+                    if (self.oscillatorType == FWTClockOscillatorTypeQuartzSmallJump)
+                    {
+                        CGFloat extra = .75f;
+                        myself.clockView.handSecondView.transform = CGAffineTransformMakeRotation(FWTDegrees2RadiansBlock(newSecondAngle + extra));
+                        [UIView animateWithDuration:.1f animations:^{
+                            myself.clockView.handSecondView.transform = CGAffineTransformMakeRotation(FWTDegrees2RadiansBlock(newSecondAngle));
+                        }];
+                    } else
+                        myself.clockView.handSecondView.transform = CGAffineTransformMakeRotation(FWTDegrees2RadiansBlock(newSecondAngle));
+                }
             };
             
-            
-            if (animated)
-            {
-                [UIView animateWithDuration:.2f animations:rotateHourAndMinuteHands];
-                
-                if (![self.clockView.handSecondView.layer animationForKey:keySecondHandAnimation])
-                {
-                    CGFloat radians = Degrees2Radians(newSecondAngle);
-                    self.clockView.handSecondView.transform = CGAffineTransformMakeRotation(radians);
-                    
-                    CGFloat circleAngle = 2*M_PI+Degrees2Radians(newSecondAngle);
-                    circleAngle = radians > M_PI ? circleAngle - 2*M_PI : circleAngle;
-                    
-                    CABasicAnimation* spinAnimation = [CABasicAnimation animationWithKeyPath:@"transform.rotation"];
-                    spinAnimation.toValue = [NSNumber numberWithFloat:circleAngle];
-                    spinAnimation.duration = 60.0f;
-                    spinAnimation.repeatCount = INFINITY;
-                    [self.clockView.handSecondView.layer addAnimation:spinAnimation forKey:keySecondHandAnimation];
-                }
-            }
+            if ([self isTicking])
+                [[NSOperationQueue mainQueue] addOperationWithBlock:FWTUpdateHandsBlock];
             else
-            {
-                rotateHourAndMinuteHands();
-                
-                self.clockView.handSecondView.transform = CGAffineTransformMakeRotation(Degrees2Radians(newSecondAngle));
-            }
+                FWTUpdateHandsBlock();
         }
+    }
+}
+
+- (void)setOscillatorType:(FWTClockOscillatorType)oscillatorType
+{
+    if (self->_oscillatorType != oscillatorType)
+    {
+        self->_oscillatorType = oscillatorType;
+
+        if ([self isTicking])
+        {
+            [self stop];  // first stop
+            [self start];  // then restart
+        }
+    }
+}
+
+- (void)start
+{
+    if (![self isTicking])
+    {
+        self.queue = [[[NSOperationQueue alloc] init] autorelease];
+        [self _tick];
+        
+        //
+        self.ticking = YES;
+    }
+}
+
+- (void)stop
+{
+    if ([self isTicking])
+    {
+        //
+        [self.queue cancelAllOperations];
+        self.queue = nil;
+        
+        //
+        if ((self.clockView.subviewsMask & FWTClockSubviewHandSecond) && self.oscillatorType == FWTClockOscillatorTypeMechanical)
+        {
+            __block typeof(self) myself = self;
+            [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                CALayer *pl = myself.clockView.handSecondView.layer.presentationLayer;
+                CGAffineTransform t = pl.affineTransform;
+                [myself.clockView.handSecondView.layer removeAnimationForKey:keySecondHandAnimation];
+                myself.clockView.handSecondView.transform = t;
+            }];
+        }
+     
+        //
+        self.ticking = NO;
     }
 }
 
 - (void)toggle
 {
-    if ([self isAnimating])
-    {
-        [NSObject cancelPreviousPerformRequestsWithTarget:self];
-        
-        CALayer *pl = self.clockView.handSecondView.layer.presentationLayer;
-        CGAffineTransform t = pl.affineTransform;
-        [self.clockView.handSecondView.layer removeAnimationForKey:keySecondHandAnimation];
-        self.clockView.handSecondView.transform = t;
-    }
-    else
-    {
-        [self _tick];
-    }
-    
-    self.animating = !self.animating;
+    [self isTicking] ? [self stop] : [self start];
 }
+
 
 @end

@@ -7,12 +7,14 @@
 //
 #import <QuartzCore/QuartzCore.h>
 #import "FWTClockView.h"
-#import "FWTClockViewFactory.h"
+#import "FWTClockViewDefaultAppearance.h"
 
 @interface FWTClockView ()
 @property (nonatomic, assign, getter = isInitializedWithDefaults) BOOL initializedWithDefaults;
 @property (nonatomic, retain) NSMutableArray *clockSubviewsSize;
 @property (nonatomic, retain) NSMutableArray *clockSubviews;
+@property (nonatomic, assign) BOOL subviewsNeedLayout;
+
 @end
 
 @implementation FWTClockView
@@ -24,9 +26,11 @@
 @synthesize ringView = _ringView;
 @synthesize clockSubviewsSize = _clockSubviewsSize;
 @synthesize clockSubviews = _clockSubviews;
+@synthesize appearanceClass = _appearanceClass;
 
 - (void)dealloc
 {
+    self.appearanceClass = nil;
     self.clockSubviews = nil;
     self.clockSubviewsSize = nil;
     [super dealloc];
@@ -36,21 +40,37 @@
 {
     if ((self = [super initWithFrame:frame]))
     {
+        //
         self.edgeInsets = UIEdgeInsetsZero;
-        self.style = FWTClockViewStyleDay;
+        self.subviewsMask = FWTClockSubviewAll;
+        self.appearanceClass = [FWTClockViewDefaultAppearance class];
         
-        self.layer.borderWidth = 1.0f;
-        
-        self.clockSubviewsSize = [NSMutableArray arrayWithCapacity:FWTClockSubviewCount];
-        self.clockSubviews = [NSMutableArray arrayWithCapacity:FWTClockSubviewCount];
+        //
+        NSInteger capacity = FWTClockSubviewCount;//log2(FWTClockSubviewCount);
+        self.clockSubviewsSize = [NSMutableArray arrayWithCapacity:capacity];
+        self.clockSubviews = [NSMutableArray arrayWithCapacity:capacity];
         NSNull *null = [NSNull null];
-        for (unsigned i=0; i<FWTClockSubviewCount; i++)
+        for (unsigned i=0; i<capacity; i++)
         {
             [self.clockSubviewsSize addObject:null];
             [self.clockSubviews addObject:null];
         }
     }
     return self;
+}
+
+- (void)setFrame:(CGRect)frame
+{
+    CGRect previous = [[self valueForKey:@"frame"] CGRectValue];
+    self.subviewsNeedLayout = !CGRectEqualToRect(previous, frame);
+    [super setFrame:frame];
+}
+
+- (void)setBounds:(CGRect)bounds
+{
+    CGRect previous = [[self valueForKey:@"bounds"] CGRectValue];
+    self.subviewsNeedLayout = !CGRectEqualToRect(previous, bounds);
+    [super setBounds:bounds];
 }
 
 - (void)layoutSubviews
@@ -61,18 +81,27 @@
     [self _initWithDefaultsIfNeeded];
     
     //
-    CGRect availableRect = UIEdgeInsetsInsetRect(self.bounds, self.edgeInsets);
-    CGPoint centerPoint = CGPointMake(CGRectGetMidX(availableRect), CGRectGetMidY(availableRect));
-    [self.clockSubviews enumerateObjectsUsingBlock:^(UIView *subview, NSUInteger idx, BOOL *stop) {
-                
-        if (!subview.superview)
-            [self addSubview:subview];
+    if (self.subviewsNeedLayout)
+    {
+        self.subviewsNeedLayout = NO;
         
-        //
-        CGSize absoluteSize = [self _absoluteSizeForClockSubview:idx];
-        subview.center = centerPoint;
-        subview.bounds = CGRectMake(.0f, .0f, absoluteSize.width, absoluteSize.height);
-    }];
+        CGRect availableRect = UIEdgeInsetsInsetRect(self.bounds, self.edgeInsets);
+        CGPoint centerPoint = CGPointMake(CGRectGetMidX(availableRect), CGRectGetMidY(availableRect));
+        [self.clockSubviews enumerateObjectsUsingBlock:^(UIView *subview, NSUInteger idx, BOOL *stop) {
+            
+            NSInteger index = pow(2, idx);
+            if (self.subviewsMask & index)
+            {
+                if (!subview.superview)
+                    [self addSubview:subview];
+                
+                //
+                CGSize size = [self _sizeForClockSubview:index];
+                subview.center = centerPoint;
+                subview.bounds = CGRectMake(.0f, .0f, size.width, size.height);
+            }
+        }];
+    }
 }
 
 #pragma mark - Private
@@ -80,54 +109,68 @@
 {
     if (![self isInitializedWithDefaults])
     {
-        __block BOOL needToInit = NO;
-        __block NSMutableIndexSet *indexSet = [NSMutableIndexSet indexSet];
+        self.initializedWithDefaults = YES;
+        
+        __block NSMutableIndexSet *indexSet = nil;
         [self.clockSubviews enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-            if (obj == [NSNull null])
+            NSInteger index = pow(2, idx);
+            if (obj == [NSNull null] && (self.subviewsMask & index))
             {
-                [indexSet addIndex:idx];
-                
-                needToInit = YES;
-//                *stop = YES;
+                if (!indexSet) indexSet = [[NSMutableIndexSet indexSet] retain];
+                [indexSet addIndex:index];
             }
         }];
         
-        if (needToInit)
+        if (indexSet)
         {
-            self.initializedWithDefaults = YES;
-            [FWTClockViewFactory applyDefaultsToClockView:self forIndexes:indexSet style:self.style];
-//            [FWTClockViewFactory applyDefaultsToClockView:self];
+            [self _loadDefaultSubviewsForIndexes:indexSet];
+            [indexSet release];
         }
     }
 }
 
-- (CGSize)_absoluteSizeForClockSubview:(FWTClockSubview)clockSubview
+- (CGSize)_sizeForClockSubview:(FWTClockSubview)clockSubview
 {
-    id value = [self.clockSubviewsSize objectAtIndex:clockSubview];
+    NSInteger index = log2(clockSubview);
+    id value = [self.clockSubviewsSize objectAtIndex:index];
     if (value == [NSNull null])
     {
-        UIView *subview = [self.clockSubviews objectAtIndex:clockSubview];
-        CGSize relativeSize = subview.frame.size;
-        value = [NSValue valueWithCGSize:relativeSize];
-        [self.clockSubviewsSize replaceObjectAtIndex:clockSubview withObject:value];
+        UIView *subview = [self.clockSubviews objectAtIndex:index];
+        CGSize assignedSize = subview.frame.size;
+        value = [NSValue valueWithCGSize:assignedSize];
+        [self.clockSubviewsSize replaceObjectAtIndex:index withObject:value];
     }
 
     CGRect availableRect = UIEdgeInsetsInsetRect(self.bounds, self.edgeInsets);
-    CGSize relativeSize = [value CGSizeValue];
-    NSInteger wi = CGRectGetWidth(availableRect)*relativeSize.width;
-    NSInteger hi = CGRectGetHeight(availableRect)*relativeSize.height;
+    CGSize assignedSize = [value CGSizeValue];
+    NSInteger wi = 0;
+    NSInteger hi = 0;
+    if (assignedSize.width > 1.0f && assignedSize.height > 1.0f)
+    {
+        wi = (NSInteger)assignedSize.width;
+        hi = (NSInteger)assignedSize.height;
+    }
+    else
+    {
+        wi = CGRectGetWidth(availableRect)*assignedSize.width;
+        hi = CGRectGetHeight(availableRect)*assignedSize.height;
+    }
+    
     CGSize toReturn = CGSizeMake(wi, hi);
-    NSLog(@"absoluteSize[%i]:%@", clockSubview, NSStringFromCGSize(toReturn));
     return toReturn;
 }
 
 - (UIView *)_currentViewForClockSubview:(FWTClockSubview)clockSubview
 {
-    UIView *currentView = [self.clockSubviews objectAtIndex:clockSubview];
+    if (!(self.subviewsMask & clockSubview))
+        return nil;
+    
+    NSInteger index = log2(clockSubview);
+    UIView *currentView = [self.clockSubviews objectAtIndex:index];
     if ((NSNull *)currentView == [NSNull null])
     {
-        currentView = [FWTClockViewFactory defaultViewForClockSubview:clockSubview style:self.style];
-        [self.clockSubviews replaceObjectAtIndex:clockSubview withObject:currentView];
+        currentView = [[self appearanceClass] clockView:self viewForClockSubview:clockSubview];
+        [self.clockSubviews replaceObjectAtIndex:index withObject:currentView];
     }
     
     return currentView;
@@ -135,17 +178,26 @@
 
 - (void)_replaceViewForClockSubview:(FWTClockSubview)clockSubview withView:(UIView *)newView
 {
-    UIView *currentView = [self.clockSubviews objectAtIndex:clockSubview];
+    NSInteger index = log2(clockSubview);
+    UIView *currentView = [self.clockSubviews objectAtIndex:index];
     if (newView == nil)
     {
-        [self.clockSubviews replaceObjectAtIndex:clockSubview withObject:[NSNull null]];
-        [self.clockSubviewsSize replaceObjectAtIndex:clockSubview withObject:[NSNull null]];
+        [self.clockSubviews replaceObjectAtIndex:index withObject:[NSNull null]];
+        [self.clockSubviewsSize replaceObjectAtIndex:index withObject:[NSNull null]];
     }
     else if (currentView != newView)
     {
-        [self.clockSubviews replaceObjectAtIndex:clockSubview withObject:newView];
-        [self.clockSubviewsSize replaceObjectAtIndex:clockSubview withObject:[NSNull null]];
+        [self.clockSubviews replaceObjectAtIndex:index withObject:newView];
+        [self.clockSubviewsSize replaceObjectAtIndex:index withObject:[NSNull null]];
     }
+}
+
+- (void)_loadDefaultSubviewsForIndexes:(NSIndexSet *)indexes
+{
+    [indexes enumerateIndexesUsingBlock:^(NSUInteger clockSubview, BOOL *stop) {
+        UIView *defaultView = [[self appearanceClass] clockView:self viewForClockSubview:clockSubview];
+        [self _replaceViewForClockSubview:clockSubview withView:defaultView];
+    }];
 }
 
 #pragma mark - Accessors
@@ -197,6 +249,23 @@
 - (void)setRingView:(UIView *)ringView
 {
     [self _replaceViewForClockSubview:FWTClockSubviewRing withView:ringView];
+}
+
+- (void)setAppearanceClass:(Class)appearanceClass
+{
+    if (self->_appearanceClass != appearanceClass && [appearanceClass conformsToProtocol:@protocol(FWTClockViewAppearance)])
+    {
+        [self->_appearanceClass release];
+        self->_appearanceClass = nil;
+        
+        self->_appearanceClass = [appearanceClass retain];
+    }
+}
+
+#pragma mark - Public
++ (Class)defaultAppearanceClass
+{
+    return [FWTClockViewDefaultAppearance class];
 }
 
 @end
