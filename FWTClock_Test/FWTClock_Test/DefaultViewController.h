@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "FWTClock.h"
 
-@interface ViewController : UIViewController
+@interface DefaultViewController : UIViewController
+
+@property (nonatomic, retain) FWTClock *clock;
 
 @end

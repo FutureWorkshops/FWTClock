@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 #import "FWTClockView.h"
 
-@interface FWTClockViewDefaultAppearance : NSObject <FWTClockViewAppearance>
+@interface FWTClockViewDefault : NSObject
+
++ (FWTClockViewClockSubviewBlock)defaultClockSubviewBlock;
 
 @end

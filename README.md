@@ -28,55 +28,36 @@ You don't have to do much if you're happy with the default clock style:
 
 ##How to use FWTClock: configure
 
-**clockView** the *readonly* clock view 
-
-**date** the date displayed by the clock
-
-**calendar** the calendar used by the clock
-
-**isTicking** returns a Boolean value indicating whether the tick animation is running
-
-**oscillatorType** the style of the animation for the second hand
+* **clockView** the *readonly* clock view 
+* **date** the date displayed by the clock
+* **calendar** the calendar used by the clock
+* **isTicking** returns a Boolean value indicating whether the tick animation is running
+* **oscillatorType** the style of the animation for the second hand
 
 ##How to use FWTClockView: configure
 
 The FWTClockView is just a basic container for all the views needed for the UI: the background, the hands, the ring. The clock view, during the first layout, reads the *subviewsMask* and, if needed, creates the default subviews otherwise its simply sets the bounds and the center point to the subviews. You can access each of the default subviews and adjust their appearance (see below for further details) or you can easily replace with your own custom UIView subclass. It's not mandatory but you can also specify the frame for each single subview using a rectangle in the unit coordinate space.
 
-**backgroundView** the background of the clock
-
-**handHourView** the hour hand of the clock
-
-**handMinuteView** the minute hand of the clock
-
-**handSecondView** the second hand of the clock
-
-**ringView** the frontmost ring of the clock  
+* **backgroundView** the background of the clock
+* **handHourView** the hour hand of the clock
+* **handMinuteView** the minute hand of the clock
+* **handSecondView** the second hand of the clock
+* **ringView** the frontmost ring of the clock  
     
 The view has few more properties to help you configure the clock appearance:
 
-**edgeInsets** use this property to resize and reposition the effective rectangle 
+* **edgeInsets** use this property to resize and reposition the effective rectangle 
+* **subviewsMask** an integer bit mask that determines which of the clock subviews should be enabled 
+* **clockSubviewBlock** a block object that returns the subview for the given clockSubview
 
-**subviewsMask** an integer bit mask that determines which of the clock subviews should be enabled 
 
-**appearanceClass** the class to use for initialize the clock subviews
-
-##FWTClockView subviews: default
+##FWTClockViewDefault
 
 **FWTClockShapeView** the backing layer of this superclass is a *CAShapeLayer*. The view call the *updateShapePath* only when it's needed and relies on the *pathBlock* property to set the path property of the layer. Use the *edgeInsets* property to resize and reposition the effective rectangle.
 
 **FWTClockBackgroundView** *[todo]*
 
 **FWTClockHandView** the height of each hand matches the clockView height (the anchorPoint is the default one). There are two additional properties: *start* and *end*, the start and the end of the path when drawn in the layer’s coordinate space.
-
-##FWTClockViewAppearance
-The FWTClockViewAppearance protocol gives you an additional way to customize your FWTClockView. There's only method to implement:
-
-\+ (UIView *)clockView:(FWTClockView *)clockView viewForClockSubview:(FWTClockSubview)clockSubview; 
-
-There's no possibility to force the clock view to call this method or the refresh the appearance after it's added to the superview. 
-
-##For your interest
-
 
 ##Demo
 See the sample project.

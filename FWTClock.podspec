@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
   s.name         = "FWTClock"
   s.version      = "0.0.1"
-  s.summary      = "FWTClock is a flexible and easy to customize analog clock"
+  s.summary      = "FWTClock is a flexible and easy to customize analog clock."
   s.homepage     = "https://github.com/FutureWorkshops/FWTClock"
   s.license      = { :type => 'Apache License Version 2.0', :file => 'LICENSE' }
   s.author       = { 'Marco Meschini' => 'marco@futureworkshops.com' }

@@ -18,7 +18,10 @@
 		A9801FF91611FCB100641C39 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A9801FF81611FCB100641C39 /* Default-568h@2x.png */; };
 		A98020001611FCC700641C39 /* libFWTClock.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A9801FFF1611FCC700641C39 /* libFWTClock.a */; };
 		A98020021611FCCF00641C39 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A98020011611FCCF00641C39 /* QuartzCore.framework */; };
-		A98020061611FD1600641C39 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A98020051611FD1600641C39 /* ViewController.m */; };
+		A98020061611FD1600641C39 /* DefaultViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A98020051611FD1600641C39 /* DefaultViewController.m */; };
+		A9B70A5716B2D12C00BF147D /* SamplePickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9B70A5616B2D12C00BF147D /* SamplePickerViewController.m */; };
+		A9B70A5D16B2D1A500BF147D /* CustomViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9B70A5C16B2D1A500BF147D /* CustomViewController.m */; };
+		A9B70A6716B2D72C00BF147D /* Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = A9B70A6616B2D72C00BF147D /* Utils.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,8 +40,14 @@
 		A9801FF81611FCB100641C39 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		A9801FFF1611FCC700641C39 /* libFWTClock.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libFWTClock.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		A98020011611FCCF00641C39 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
-		A98020041611FD1600641C39 /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		A98020051611FD1600641C39 /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		A98020041611FD1600641C39 /* DefaultViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DefaultViewController.h; sourceTree = "<group>"; };
+		A98020051611FD1600641C39 /* DefaultViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DefaultViewController.m; sourceTree = "<group>"; };
+		A9B70A5516B2D12C00BF147D /* SamplePickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SamplePickerViewController.h; sourceTree = "<group>"; };
+		A9B70A5616B2D12C00BF147D /* SamplePickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SamplePickerViewController.m; sourceTree = "<group>"; };
+		A9B70A5B16B2D1A500BF147D /* CustomViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomViewController.h; sourceTree = "<group>"; };
+		A9B70A5C16B2D1A500BF147D /* CustomViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomViewController.m; sourceTree = "<group>"; };
+		A9B70A6516B2D72C00BF147D /* Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utils.h; sourceTree = "<group>"; };
+		A9B70A6616B2D72C00BF147D /* Utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Utils.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -91,8 +100,9 @@
 			children = (
 				A9801FF11611FCB100641C39 /* AppDelegate.h */,
 				A9801FF21611FCB100641C39 /* AppDelegate.m */,
-				A98020041611FD1600641C39 /* ViewController.h */,
-				A98020051611FD1600641C39 /* ViewController.m */,
+				A9B70A6816B2D72F00BF147D /* Common */,
+				A9B70A5916B2D15E00BF147D /* Default */,
+				A9B70A5A16B2D19200BF147D /* Custom */,
 				A9801FE91611FCB100641C39 /* Supporting Files */,
 			);
 			path = FWTClock_Test;
@@ -110,6 +120,35 @@
 				A9801FF81611FCB100641C39 /* Default-568h@2x.png */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		A9B70A5916B2D15E00BF147D /* Default */ = {
+			isa = PBXGroup;
+			children = (
+				A98020041611FD1600641C39 /* DefaultViewController.h */,
+				A98020051611FD1600641C39 /* DefaultViewController.m */,
+			);
+			name = Default;
+			sourceTree = "<group>";
+		};
+		A9B70A5A16B2D19200BF147D /* Custom */ = {
+			isa = PBXGroup;
+			children = (
+				A9B70A5B16B2D1A500BF147D /* CustomViewController.h */,
+				A9B70A5C16B2D1A500BF147D /* CustomViewController.m */,
+			);
+			name = Custom;
+			sourceTree = "<group>";
+		};
+		A9B70A6816B2D72F00BF147D /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				A9B70A5516B2D12C00BF147D /* SamplePickerViewController.h */,
+				A9B70A5616B2D12C00BF147D /* SamplePickerViewController.m */,
+				A9B70A6516B2D72C00BF147D /* Utils.h */,
+				A9B70A6616B2D72C00BF147D /* Utils.m */,
+			);
+			name = Common;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -179,7 +218,10 @@
 			files = (
 				A9801FEF1611FCB100641C39 /* main.m in Sources */,
 				A9801FF31611FCB100641C39 /* AppDelegate.m in Sources */,
-				A98020061611FD1600641C39 /* ViewController.m in Sources */,
+				A98020061611FD1600641C39 /* DefaultViewController.m in Sources */,
+				A9B70A5716B2D12C00BF147D /* SamplePickerViewController.m in Sources */,
+				A9B70A5D16B2D1A500BF147D /* CustomViewController.m in Sources */,
+				A9B70A6716B2D72C00BF147D /* Utils.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -297,6 +339,7 @@
 				A9801FFE1611FCB100641C39 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
