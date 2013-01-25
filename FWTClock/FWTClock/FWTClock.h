@@ -8,6 +8,10 @@
 
 #import <Foundation/Foundation.h>
 #import "FWTClockView.h"
+#import "FWTClockViewDefault.h"
+#import "FWTClockShapeView.h"
+#import "FWTClockBackgroundView.h"
+#import "FWTClockHandView.h"
 
 CGFloat(^FWTDegrees2RadiansBlock)(CGFloat);
 CGFloat(^FWTNormalizeAngleBlock)(CGFloat);

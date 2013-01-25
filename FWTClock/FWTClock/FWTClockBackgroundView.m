@@ -89,9 +89,7 @@
 #pragma mark - Getters
 - (FWTClockTeethLayer *)teethLayer
 {
-    if (!self->_teethLayer)
-        self->_teethLayer = [[FWTClockTeethLayer alloc] init];
-    
+    if (!self->_teethLayer) self->_teethLayer = [[FWTClockTeethLayer alloc] init];
     return self->_teethLayer;
 }
 

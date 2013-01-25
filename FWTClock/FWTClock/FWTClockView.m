@@ -7,7 +7,7 @@
 //
 #import <QuartzCore/QuartzCore.h>
 #import "FWTClockView.h"
-#import "FWTClockViewDefaultAppearance.h"
+#import "FWTClockViewDefault.h"
 
 @interface FWTClockView ()
 @property (nonatomic, assign, getter = isInitializedWithDefaults) BOOL initializedWithDefaults;
@@ -26,11 +26,10 @@
 @synthesize ringView = _ringView;
 @synthesize clockSubviewsSize = _clockSubviewsSize;
 @synthesize clockSubviews = _clockSubviews;
-@synthesize appearanceClass = _appearanceClass;
 
 - (void)dealloc
 {
-    self.appearanceClass = nil;
+    self.clockSubviewBlock = nil;
     self.clockSubviews = nil;
     self.clockSubviewsSize = nil;
     [super dealloc];
@@ -43,10 +42,9 @@
         //
         self.edgeInsets = UIEdgeInsetsZero;
         self.subviewsMask = FWTClockSubviewAll;
-        self.appearanceClass = [FWTClockViewDefaultAppearance class];
         
         //
-        NSInteger capacity = FWTClockSubviewCount;//log2(FWTClockSubviewCount);
+        NSInteger capacity = FWTClockSubviewCount;
         self.clockSubviewsSize = [NSMutableArray arrayWithCapacity:capacity];
         self.clockSubviews = [NSMutableArray arrayWithCapacity:capacity];
         NSNull *null = [NSNull null];
@@ -169,7 +167,7 @@
     UIView *currentView = [self.clockSubviews objectAtIndex:index];
     if ((NSNull *)currentView == [NSNull null])
     {
-        currentView = [[self appearanceClass] clockView:self viewForClockSubview:clockSubview];
+        currentView = self.clockSubviewBlock(clockSubview);
         [self.clockSubviews replaceObjectAtIndex:index withObject:currentView];
     }
     
@@ -195,7 +193,7 @@
 - (void)_loadDefaultSubviewsForIndexes:(NSIndexSet *)indexes
 {
     [indexes enumerateIndexesUsingBlock:^(NSUInteger clockSubview, BOOL *stop) {
-        UIView *defaultView = [[self appearanceClass] clockView:self viewForClockSubview:clockSubview];
+        UIView *defaultView = self.clockSubviewBlock(clockSubview);
         [self _replaceViewForClockSubview:clockSubview withView:defaultView];
     }];
 }
@@ -251,21 +249,10 @@
     [self _replaceViewForClockSubview:FWTClockSubviewRing withView:ringView];
 }
 
-- (void)setAppearanceClass:(Class)appearanceClass
+- (FWTClockViewClockSubviewBlock)clockSubviewBlock
 {
-    if (self->_appearanceClass != appearanceClass && [appearanceClass conformsToProtocol:@protocol(FWTClockViewAppearance)])
-    {
-        [self->_appearanceClass release];
-        self->_appearanceClass = nil;
-        
-        self->_appearanceClass = [appearanceClass retain];
-    }
-}
-
-#pragma mark - Public
-+ (Class)defaultAppearanceClass
-{
-    return [FWTClockViewDefaultAppearance class];
+    if (!self->_clockSubviewBlock) self->_clockSubviewBlock = [[FWTClockViewDefault defaultClockSubviewBlock] copy];
+    return self->_clockSubviewBlock;
 }
 
 @end
