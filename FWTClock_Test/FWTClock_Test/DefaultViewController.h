@@ -6,11 +6,9 @@
 //  Copyright (c) 2012 Marco Meschini. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "RistrettoTableViewController.h"
 #import "FWTClock.h"
 
-@interface DefaultViewController : UIViewController
-
+@interface DefaultViewController : RistrettoTableViewController
 @property (nonatomic, retain) FWTClock *clock;
-
 @end

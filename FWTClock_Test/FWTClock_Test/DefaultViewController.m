@@ -7,10 +7,8 @@
 //
 
 #import "DefaultViewController.h"
-#import <QuartzCore/QuartzCore.h>
 
 @implementation DefaultViewController
-@synthesize clock = _clock;
 
 - (void)dealloc
 {
@@ -18,36 +16,32 @@
     [super dealloc];
 }
 
-- (id)init
-{
-    if (self = [super init])
-    {
-        self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:@"Start"
-                                                                                   style:UIBarButtonItemStyleBordered
-                                                                                  target:self
-                                                                                  action:@selector(_doAction:)] autorelease];
-    }
-    return self;
-}
-
 - (void)loadView
 {
     [super loadView];
     
     //
-    CGFloat min = sideWidthBlock(self.view.frame, 20.0f);
-    self.clock.clockView.bounds = CGRectMake(0, 0, min, min);
-    self.clock.clockView.center = self.view.center;
-    [self.view addSubview:self.clock.clockView];
-}
+    UIEdgeInsets insets = UIEdgeInsetsMake(35.0f, 25.0f, 50.0f, 25.0f);
+    CGRect frame = CGRectMake(.0f, .0f, 270.0f, 270.0f);
+    self.clock.clockView.frame = frame;
+    [self setTableHeaderView:self.clock.clockView insets:insets];
 
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
+    //
+    NSMethodSignature *signature = [FWTClock instanceMethodSignatureForSelector:@selector(toggle)];
+    NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:signature];
+    [invocation setTarget:self.clock];
+    [invocation setSelector:@selector(toggle)];
+    self.items = @[invocation];
     
-    CGFloat min = sideWidthBlock(self.view.frame, 20.0f);
-    if (min != CGRectGetWidth(self.clock.clockView.bounds))
-        self.clock.clockView.bounds = CGRectMake(0, 0, min, min);
+    //
+    self.configureCellBlock = ^(RistrettoTableViewController *vc, UITableViewCell *cell, NSIndexPath *indexPath, id item){
+        cell.textLabel.text = @"start/stop";
+    };
+    
+    self.didSelectCellBlock = ^(RistrettoTableViewController *vc, UITableViewCell *cell, NSIndexPath *indexPath, id item){
+        [item invoke];
+        [vc.tableView deselectRowAtIndexPath:indexPath animated:YES];
+    };
 }
 
 #pragma mark - Accessors
@@ -56,18 +50,10 @@
     if (!self->_clock)
     {
         self->_clock = [[FWTClock alloc] init];
-        self->_clock.oscillatorType = FWTClockOscillatorTypeMechanical; // FWTClockOscillatorTypeQuartzSmallJump // FWTClockOscillatorTypeQuartz
-        self->_clock.clockView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin|UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleBottomMargin|UIViewAutoresizingFlexibleRightMargin;
+        self->_clock.oscillatorType = FWTClockOscillatorTypeMechanical;
     }
     
     return self->_clock;
-}
-
-#pragma mark - Private
-- (void)_doAction:(id)sender
-{
-    [self.clock toggle];
-    self.navigationItem.rightBarButtonItem.title = [self.clock isTicking] ? @"Stop" : @"Start";
 }
 
 @end
