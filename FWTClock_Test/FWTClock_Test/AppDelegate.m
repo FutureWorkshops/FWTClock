@@ -7,7 +7,6 @@
 //
 
 #import "AppDelegate.h"
-#import "RistrettoTableViewController.h"
 
 @implementation AppDelegate
 

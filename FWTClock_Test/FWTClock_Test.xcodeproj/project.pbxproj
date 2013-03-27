@@ -21,16 +21,10 @@
 		A98020061611FD1600641C39 /* DefaultViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A98020051611FD1600641C39 /* DefaultViewController.m */; };
 		A99CC53B170345830070FF13 /* icon_clock.png in Resources */ = {isa = PBXBuildFile; fileRef = A99CC539170345830070FF13 /* icon_clock.png */; };
 		A99CC53C170345830070FF13 /* icon_clock@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A99CC53A170345830070FF13 /* icon_clock@2x.png */; };
-		A9B70A5716B2D12C00BF147D /* RistrettoTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9B70A5616B2D12C00BF147D /* RistrettoTableViewController.m */; };
+		A99CC587170366B10070FF13 /* libRistrettoUI.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A99CC586170366B10070FF13 /* libRistrettoUI.a */; };
 		A9B70A5D16B2D1A500BF147D /* CustomViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9B70A5C16B2D1A500BF147D /* CustomViewController.m */; };
 		A9E6092A170214F400C50BBB /* button_back.png in Resources */ = {isa = PBXBuildFile; fileRef = A9E60928170214F400C50BBB /* button_back.png */; };
 		A9E6092B170214F400C50BBB /* button_back@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A9E60929170214F400C50BBB /* button_back@2x.png */; };
-		A9E6093417030EB500C50BBB /* UIImage+Ristretto.m in Sources */ = {isa = PBXBuildFile; fileRef = A9E6093317030EB500C50BBB /* UIImage+Ristretto.m */; };
-		A9E6093717030F1E00C50BBB /* UIImage+FWTBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = A9E6093617030F1E00C50BBB /* UIImage+FWTBlock.m */; };
-		A9E609401703150000C50BBB /* UIColor+Ristretto.m in Sources */ = {isa = PBXBuildFile; fileRef = A9E6093F1703150000C50BBB /* UIColor+Ristretto.m */; };
-		A9E609431703167000C50BBB /* UIFont+Ristretto.m in Sources */ = {isa = PBXBuildFile; fileRef = A9E609421703166F00C50BBB /* UIFont+Ristretto.m */; };
-		A9E6094617031E6300C50BBB /* RistrettoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A9E6094517031E6300C50BBB /* RistrettoTableViewCell.m */; };
-		A9E6094917031FC500C50BBB /* UIViewController+Ristretto.m in Sources */ = {isa = PBXBuildFile; fileRef = A9E6094817031FC500C50BBB /* UIViewController+Ristretto.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -53,24 +47,11 @@
 		A98020051611FD1600641C39 /* DefaultViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DefaultViewController.m; sourceTree = "<group>"; };
 		A99CC539170345830070FF13 /* icon_clock.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_clock.png; sourceTree = "<group>"; };
 		A99CC53A170345830070FF13 /* icon_clock@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_clock@2x.png"; sourceTree = "<group>"; };
-		A9B70A5516B2D12C00BF147D /* RistrettoTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RistrettoTableViewController.h; sourceTree = "<group>"; };
-		A9B70A5616B2D12C00BF147D /* RistrettoTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RistrettoTableViewController.m; sourceTree = "<group>"; };
+		A99CC586170366B10070FF13 /* libRistrettoUI.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libRistrettoUI.a; path = "../../../../Library/Developer/Xcode/DerivedData/Build/Products/Debug-iphoneos/libRistrettoUI.a"; sourceTree = "<group>"; };
 		A9B70A5B16B2D1A500BF147D /* CustomViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomViewController.h; sourceTree = "<group>"; };
 		A9B70A5C16B2D1A500BF147D /* CustomViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomViewController.m; sourceTree = "<group>"; };
 		A9E60928170214F400C50BBB /* button_back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_back.png; sourceTree = "<group>"; };
 		A9E60929170214F400C50BBB /* button_back@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button_back@2x.png"; sourceTree = "<group>"; };
-		A9E6093217030EB500C50BBB /* UIImage+Ristretto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Ristretto.h"; sourceTree = "<group>"; };
-		A9E6093317030EB500C50BBB /* UIImage+Ristretto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Ristretto.m"; sourceTree = "<group>"; };
-		A9E6093517030F1E00C50BBB /* UIImage+FWTBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+FWTBlock.h"; sourceTree = "<group>"; };
-		A9E6093617030F1E00C50BBB /* UIImage+FWTBlock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+FWTBlock.m"; sourceTree = "<group>"; };
-		A9E6093E1703150000C50BBB /* UIColor+Ristretto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Ristretto.h"; sourceTree = "<group>"; };
-		A9E6093F1703150000C50BBB /* UIColor+Ristretto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Ristretto.m"; sourceTree = "<group>"; };
-		A9E609411703166F00C50BBB /* UIFont+Ristretto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIFont+Ristretto.h"; sourceTree = "<group>"; };
-		A9E609421703166F00C50BBB /* UIFont+Ristretto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIFont+Ristretto.m"; sourceTree = "<group>"; };
-		A9E6094417031E6300C50BBB /* RistrettoTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RistrettoTableViewCell.h; sourceTree = "<group>"; };
-		A9E6094517031E6300C50BBB /* RistrettoTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RistrettoTableViewCell.m; sourceTree = "<group>"; };
-		A9E6094717031FC500C50BBB /* UIViewController+Ristretto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+Ristretto.h"; sourceTree = "<group>"; };
-		A9E6094817031FC500C50BBB /* UIViewController+Ristretto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+Ristretto.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,6 +59,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A99CC587170366B10070FF13 /* libRistrettoUI.a in Frameworks */,
 				A98020021611FCCF00641C39 /* QuartzCore.framework in Frameworks */,
 				A98020001611FCC700641C39 /* libFWTClock.a in Frameworks */,
 				A9801FE31611FCB100641C39 /* UIKit.framework in Frameworks */,
@@ -109,6 +91,7 @@
 		A9801FE11611FCB100641C39 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				A99CC586170366B10070FF13 /* libRistrettoUI.a */,
 				A9801FFF1611FCC700641C39 /* libFWTClock.a */,
 				A98020011611FCCF00641C39 /* QuartzCore.framework */,
 				A9801FE21611FCB100641C39 /* UIKit.framework */,
@@ -123,7 +106,6 @@
 			children = (
 				A9801FF11611FCB100641C39 /* AppDelegate.h */,
 				A9801FF21611FCB100641C39 /* AppDelegate.m */,
-				A9B70A6816B2D72F00BF147D /* Common */,
 				A9B70A5916B2D15E00BF147D /* Sample */,
 				A9801FE91611FCB100641C39 /* Supporting Files */,
 			);
@@ -148,41 +130,6 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		A99CC53D170349FB0070FF13 /* Ristretto */ = {
-			isa = PBXGroup;
-			children = (
-				A99CC53E17034A0C0070FF13 /* Base */,
-				A99CC53F17034A140070FF13 /* Categories */,
-			);
-			name = Ristretto;
-			sourceTree = "<group>";
-		};
-		A99CC53E17034A0C0070FF13 /* Base */ = {
-			isa = PBXGroup;
-			children = (
-				A9B70A5516B2D12C00BF147D /* RistrettoTableViewController.h */,
-				A9B70A5616B2D12C00BF147D /* RistrettoTableViewController.m */,
-				A9E6094417031E6300C50BBB /* RistrettoTableViewCell.h */,
-				A9E6094517031E6300C50BBB /* RistrettoTableViewCell.m */,
-			);
-			name = Base;
-			sourceTree = "<group>";
-		};
-		A99CC53F17034A140070FF13 /* Categories */ = {
-			isa = PBXGroup;
-			children = (
-				A9E6093217030EB500C50BBB /* UIImage+Ristretto.h */,
-				A9E6093317030EB500C50BBB /* UIImage+Ristretto.m */,
-				A9E6093E1703150000C50BBB /* UIColor+Ristretto.h */,
-				A9E6093F1703150000C50BBB /* UIColor+Ristretto.m */,
-				A9E609411703166F00C50BBB /* UIFont+Ristretto.h */,
-				A9E609421703166F00C50BBB /* UIFont+Ristretto.m */,
-				A9E6094717031FC500C50BBB /* UIViewController+Ristretto.h */,
-				A9E6094817031FC500C50BBB /* UIViewController+Ristretto.m */,
-			);
-			name = Categories;
-			sourceTree = "<group>";
-		};
 		A9B70A5916B2D15E00BF147D /* Sample */ = {
 			isa = PBXGroup;
 			children = (
@@ -192,16 +139,6 @@
 				A9B70A5C16B2D1A500BF147D /* CustomViewController.m */,
 			);
 			name = Sample;
-			sourceTree = "<group>";
-		};
-		A9B70A6816B2D72F00BF147D /* Common */ = {
-			isa = PBXGroup;
-			children = (
-				A9E6093517030F1E00C50BBB /* UIImage+FWTBlock.h */,
-				A9E6093617030F1E00C50BBB /* UIImage+FWTBlock.m */,
-				A99CC53D170349FB0070FF13 /* Ristretto */,
-			);
-			name = Common;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -276,14 +213,7 @@
 				A9801FEF1611FCB100641C39 /* main.m in Sources */,
 				A9801FF31611FCB100641C39 /* AppDelegate.m in Sources */,
 				A98020061611FD1600641C39 /* DefaultViewController.m in Sources */,
-				A9B70A5716B2D12C00BF147D /* RistrettoTableViewController.m in Sources */,
 				A9B70A5D16B2D1A500BF147D /* CustomViewController.m in Sources */,
-				A9E6093417030EB500C50BBB /* UIImage+Ristretto.m in Sources */,
-				A9E6093717030F1E00C50BBB /* UIImage+FWTBlock.m in Sources */,
-				A9E609401703150000C50BBB /* UIColor+Ristretto.m in Sources */,
-				A9E609431703167000C50BBB /* UIFont+Ristretto.m in Sources */,
-				A9E6094617031E6300C50BBB /* RistrettoTableViewCell.m in Sources */,
-				A9E6094917031FC500C50BBB /* UIViewController+Ristretto.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -322,8 +252,12 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../FWTClock/FWTClock/\"";
+				HEADER_SEARCH_PATHS = (
+					"\"$(SRCROOT)/../FWTClock/FWTClock/\"",
+					"\"$(SRCROOT)/../RistrettoUI/RistrettoUI/\"",
+				);
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				OTHER_LDFLAGS = "-ObjC";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -343,9 +277,13 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../FWTClock/FWTClock/\"";
+				HEADER_SEARCH_PATHS = (
+					"\"$(SRCROOT)/../FWTClock/FWTClock/\"",
+					"\"$(SRCROOT)/../RistrettoUI/RistrettoUI/\"",
+				);
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				OTHER_LDFLAGS = "-ObjC";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
@@ -361,6 +299,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/../../../Library/Developer/Xcode/DerivedData/FWTClock-fssbcgeopqfzzadgsnftsurzprof/Build/Products/Debug-iphoneos\"",
+					"\"$(SRCROOT)/../../../../Library/Developer/Xcode/DerivedData/Build/Products/Debug-iphoneos\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
@@ -376,6 +315,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/../../../Library/Developer/Xcode/DerivedData/FWTClock-fssbcgeopqfzzadgsnftsurzprof/Build/Products/Debug-iphoneos\"",
+					"\"$(SRCROOT)/../../../../Library/Developer/Xcode/DerivedData/Build/Products/Debug-iphoneos\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;

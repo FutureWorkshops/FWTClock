@@ -12,10 +12,5 @@
     #import <UIKit/UIKit.h>
     #import <Foundation/Foundation.h>
     #import <QuartzCore/QuartzCore.h>
-
-    //
-    #import "UIImage+Ristretto.h"
-    #import "UIImage+FWTBlock.h"
-    #import "UIColor+Ristretto.h"
-    #import "UIFont+Ristretto.h"
+    #import "RistrettoUI.h"
 #endif
