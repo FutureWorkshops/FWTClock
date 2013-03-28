@@ -45,8 +45,8 @@
     label.center = CGPointMake(CGRectGetMidX(headerView.bounds), CGRectGetHeight(headerView.bounds)-CGRectGetHeight(label.bounds)*.5f);
     [headerView addSubview:label];
     
-    self.window.rootViewController = [RistrettoTableViewController navigationControllerWithRootViewController:rootViewController];
-    
+    self.window.rootViewController = [UINavigationController Ristretto_navigationControllerWithRootViewController:rootViewController];
+        
     [self.window makeKeyAndVisible];
     return YES;
 }
