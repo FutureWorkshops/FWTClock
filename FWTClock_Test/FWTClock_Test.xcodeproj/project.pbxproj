@@ -19,8 +19,8 @@
 		A98020001611FCC700641C39 /* libFWTClock.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A9801FFF1611FCC700641C39 /* libFWTClock.a */; };
 		A98020021611FCCF00641C39 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A98020011611FCCF00641C39 /* QuartzCore.framework */; };
 		A98020061611FD1600641C39 /* DefaultViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A98020051611FD1600641C39 /* DefaultViewController.m */; };
-		A99CC53B170345830070FF13 /* icon_clock.png in Resources */ = {isa = PBXBuildFile; fileRef = A99CC539170345830070FF13 /* icon_clock.png */; };
-		A99CC53C170345830070FF13 /* icon_clock@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A99CC53A170345830070FF13 /* icon_clock@2x.png */; };
+		A99CC53B170345830070FF13 /* icon_project.png in Resources */ = {isa = PBXBuildFile; fileRef = A99CC539170345830070FF13 /* icon_project.png */; };
+		A99CC53C170345830070FF13 /* icon_project@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A99CC53A170345830070FF13 /* icon_project@2x.png */; };
 		A99CC587170366B10070FF13 /* libRistrettoUI.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A99CC586170366B10070FF13 /* libRistrettoUI.a */; };
 		A9B70A5D16B2D1A500BF147D /* CustomViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9B70A5C16B2D1A500BF147D /* CustomViewController.m */; };
 		A9D14A45170483FB00F64866 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = A9D14A44170483FB00F64866 /* Icon.png */; };
@@ -47,8 +47,8 @@
 		A98020011611FCCF00641C39 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		A98020041611FD1600641C39 /* DefaultViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DefaultViewController.h; sourceTree = "<group>"; };
 		A98020051611FD1600641C39 /* DefaultViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DefaultViewController.m; sourceTree = "<group>"; };
-		A99CC539170345830070FF13 /* icon_clock.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_clock.png; sourceTree = "<group>"; };
-		A99CC53A170345830070FF13 /* icon_clock@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_clock@2x.png"; sourceTree = "<group>"; };
+		A99CC539170345830070FF13 /* icon_project.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_project.png; sourceTree = "<group>"; };
+		A99CC53A170345830070FF13 /* icon_project@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_project@2x.png"; sourceTree = "<group>"; };
 		A99CC586170366B10070FF13 /* libRistrettoUI.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libRistrettoUI.a; path = "../../../../Library/Developer/Xcode/DerivedData/Build/Products/Debug-iphoneos/libRistrettoUI.a"; sourceTree = "<group>"; };
 		A9B70A5B16B2D1A500BF147D /* CustomViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomViewController.h; sourceTree = "<group>"; };
 		A9B70A5C16B2D1A500BF147D /* CustomViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomViewController.m; sourceTree = "<group>"; };
@@ -121,8 +121,8 @@
 			children = (
 				A9D14A461704840600F64866 /* Icon@2x.png */,
 				A9D14A44170483FB00F64866 /* Icon.png */,
-				A99CC539170345830070FF13 /* icon_clock.png */,
-				A99CC53A170345830070FF13 /* icon_clock@2x.png */,
+				A99CC539170345830070FF13 /* icon_project.png */,
+				A99CC53A170345830070FF13 /* icon_project@2x.png */,
 				A9E60928170214F400C50BBB /* button_back.png */,
 				A9E60929170214F400C50BBB /* button_back@2x.png */,
 				A9801FEA1611FCB100641C39 /* FWTClock_Test-Info.plist */,
@@ -204,8 +204,8 @@
 				A9801FF91611FCB100641C39 /* Default-568h@2x.png in Resources */,
 				A9E6092A170214F400C50BBB /* button_back.png in Resources */,
 				A9E6092B170214F400C50BBB /* button_back@2x.png in Resources */,
-				A99CC53B170345830070FF13 /* icon_clock.png in Resources */,
-				A99CC53C170345830070FF13 /* icon_clock@2x.png in Resources */,
+				A99CC53B170345830070FF13 /* icon_project.png in Resources */,
+				A99CC53C170345830070FF13 /* icon_project@2x.png in Resources */,
 				A9D14A45170483FB00F64866 /* Icon.png in Resources */,
 				A9D14A471704840600F64866 /* Icon@2x.png in Resources */,
 			);
