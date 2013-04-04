@@ -1,6 +1,6 @@
 #FWTClock
 
-![FWTClock screenshot](http://grab.by/h3N4)
+![FWTClock screenshot](http://grab.by/lkt2)
 
 
 FWTClock is a flexible and easy to customize analog clock. You can use FWTClock as a real clock or, for instance, you can use as a stamp to create dynamic images at runtime. 
