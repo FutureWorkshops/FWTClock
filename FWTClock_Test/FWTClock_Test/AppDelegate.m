@@ -7,7 +7,6 @@
 //
 
 #import "AppDelegate.h"
-#import "SamplePickerViewController.h"
 
 @implementation AppDelegate
 
@@ -20,15 +19,18 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
-    self.window.backgroundColor = [UIColor scrollViewTexturedBackgroundColor];//
-    
+    self.window.backgroundColor = [UIColor whiteColor];
+
     //
-    SamplePickerViewController *vc = [[[SamplePickerViewController alloc] init] autorelease];
-    vc.samples = @[@"DefaultViewController", @"CustomViewController"];
+    NSArray *samples = @[[RistrettoSampleDescriptor descriptorWithTitle:@"Default" className:@"DefaultViewController"],
+                         [RistrettoSampleDescriptor descriptorWithTitle:@"Night" className:@"CustomViewController"],
+                         ];
+
+    RistrettoTableViewController *rootViewController = [[[RistrettoTableViewController alloc] init] autorelease];
+    rootViewController.items = samples;
     
-    UINavigationController *nc = [[[UINavigationController alloc] initWithRootViewController:vc] autorelease];
-    nc.toolbarHidden = NO;
-    self.window.rootViewController = nc;
+    self.window.rootViewController = [UINavigationController Ristretto_navigationControllerWithRootViewController:rootViewController
+                                                                                             defaultHeaderEnabled:YES];
     [self.window makeKeyAndVisible];
     return YES;
 }

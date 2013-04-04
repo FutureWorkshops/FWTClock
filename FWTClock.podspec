@@ -1,11 +1,11 @@
 Pod::Spec.new do |s|
   s.name         = "FWTClock"
-  s.version      = "0.0.3"
+  s.version      = "0.0.9"
   s.summary      = "FWTClock is a flexible and easy to customize analog clock."
   s.homepage     = "https://github.com/FutureWorkshops/FWTClock"
   s.license      = { :type => 'Apache License Version 2.0', :file => 'LICENSE' }
   s.author       = { 'Marco Meschini' => 'marco@futureworkshops.com' }
-  s.source       = { :git => "https://github.com/FutureWorkshops/FWTClock.git", :tag => "0.0.3" }
+  s.source       = { :git => "https://github.com/FutureWorkshops/FWTClock.git", :tag => "0.0.9" }
   s.platform     = :ios
   s.source_files = 'FWTClock/FWTClock'
   s.framework  = 'QuartzCore'

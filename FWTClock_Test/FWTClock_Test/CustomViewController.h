@@ -6,9 +6,7 @@
 //  Copyright (c) 2013 Marco Meschini. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
 #import "DefaultViewController.h"
-
 
 @interface CustomViewController : DefaultViewController
 
