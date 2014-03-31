@@ -24,12 +24,22 @@ NSString *const keySecondHandAnimation = @"keySecondHandAnimation";
 @property (nonatomic, readwrite, retain) FWTClockView *clockView;
 @property (nonatomic, retain) NSOperationQueue *queue;
 @property (nonatomic, readwrite, getter = isTicking) BOOL ticking;
+@property (nonatomic, readwrite) BOOL firstTick;
+
 @end
 
 @implementation FWTClock
 @synthesize clockView = _clockView;
 @synthesize date = _date;
 @synthesize calendar = _calendar;
+
+- (instancetype) init {
+    self = [super init];
+    if (self) {
+        self.firstTick = YES;
+    }
+    return self;
+}
 
 - (void)dealloc
 {
@@ -64,6 +74,12 @@ NSString *const keySecondHandAnimation = @"keySecondHandAnimation";
     __block typeof(self) myself = self;
     NSOperation *op = [NSBlockOperation blockOperationWithBlock:^{
         BOOL animated = myself.oscillatorType == FWTClockOscillatorTypeMechanical ? YES : NO;
+        
+        if (self.firstTick) {
+            self.firstTick = NO;
+            animated = NO;
+        }
+        
         [myself setDate:[NSDate date] animated:animated];
         [NSThread sleepForTimeInterval:1];
     }];
@@ -78,9 +94,9 @@ NSString *const keySecondHandAnimation = @"keySecondHandAnimation";
     NSDateComponents *dateComponents = [self.calendar components:unitFlags fromDate:date];
     
     struct FWTClockDateComponents toReturn = {
-        .hours   = [dateComponents hour],
-        .minutes = [dateComponents minute],
-        .seconds = [dateComponents second],
+        .hours   = (int)[dateComponents hour],
+        .minutes = (int)[dateComponents minute],
+        .seconds = (int)[dateComponents second],
     };
     
     return toReturn;
@@ -168,7 +184,7 @@ NSString *const keySecondHandAnimation = @"keySecondHandAnimation";
     if (self->_oscillatorType != oscillatorType)
     {
         self->_oscillatorType = oscillatorType;
-
+        
         if ([self isTicking])
         {
             [self stop];  // first stop
@@ -208,7 +224,7 @@ NSString *const keySecondHandAnimation = @"keySecondHandAnimation";
                 myself.clockView.handSecondView.transform = t;
             }];
         }
-     
+        
         //
         self.ticking = NO;
     }
