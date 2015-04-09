@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>BACA39CC-90DF-4E5A-AC9B-563E05922DC0</string>
+	<key>IDESourceControlProjectName</key>
+	<string>FWTClock</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>130C1EFB3BC20FB68FF7E802FC6EDF8548434936</key>
+		<string>github.com:FutureWorkshops/FWTClock.git</string>
+		<key>B7CD861F4D02480618C62C55E3503326485FC52B</key>
+		<string>github.com:marciomeschini/RistrettoUI.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>FWTClock.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>130C1EFB3BC20FB68FF7E802FC6EDF8548434936</key>
+		<string>..</string>
+		<key>B7CD861F4D02480618C62C55E3503326485FC52B</key>
+		<string>..RistrettoUI/</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>github.com:FutureWorkshops/FWTClock.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>130C1EFB3BC20FB68FF7E802FC6EDF8548434936</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>130C1EFB3BC20FB68FF7E802FC6EDF8548434936</string>
+			<key>IDESourceControlWCCName</key>
+			<string>FWTClock</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>B7CD861F4D02480618C62C55E3503326485FC52B</string>
+			<key>IDESourceControlWCCName</key>
+			<string>RistrettoUI</string>
+		</dict>
+	</array>
+</dict>
+</plist>
