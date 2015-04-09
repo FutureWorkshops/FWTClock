@@ -13,9 +13,6 @@
 #import "FWTClockBackgroundView.h"
 #import "FWTClockHandView.h"
 
-CGFloat(^FWTDegrees2RadiansBlock)(CGFloat);
-CGFloat(^FWTNormalizeAngleBlock)(CGFloat);
-
 typedef NS_ENUM(NSInteger, FWTClockOscillatorType)
 {
     FWTClockOscillatorTypeQuartz,
