@@ -9,12 +9,12 @@
 #import "FWTClock.h"
 #import <QuartzCore/QuartzCore.h>
 
-CGFloat(^FWTDegrees2RadiansBlock)(CGFloat) = ^(CGFloat degrees){
+static CGFloat(^FWTDegrees2RadiansBlock)(CGFloat) = ^(CGFloat degrees){
     CGFloat toReturn = degrees * M_PI / 180;
     return toReturn;
 };
 
-CGFloat(^FWTNormalizeAngleBlock)(CGFloat) = ^(CGFloat angle){
+static CGFloat(^FWTNormalizeAngleBlock)(CGFloat) = ^(CGFloat angle){
     return angle > 360 ? angle - 360 : angle;
 };
 
