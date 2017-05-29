@@ -6,7 +6,7 @@
 FWTClock is a flexible and easy to customize analog clock. You can use FWTClock as a real clock or, for instance, you can use as a stamp to create dynamic images at runtime. 
 
 ##Requirements
-* XCode 4.4.1 or higher
+* Xcode 4.4.1 or higher
 * iOS 5.0
 
 ##Features
